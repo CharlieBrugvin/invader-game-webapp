@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-game',
   template: `
   <h1> Game Container </h1>
-  <app-board [board]="board">
-  </app-board>
+
+  <div class="board-container">
+    <app-board [board]="board">
+    </app-board>
+  </div>
+
+
   `,
   styleUrls: ['./game.container.scss']
 })

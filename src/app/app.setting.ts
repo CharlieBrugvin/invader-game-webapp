@@ -26,8 +26,8 @@ export const appSettings = {
     // ----- settings of a ship laser ------
     laser_ship: {
         size: {
-            'width.%': 5,
-            'height.%':5
+            'width.%': 0.8,
+            'height.%': 4
         },
         speed: 0.1,
         damages: 5
@@ -36,8 +36,8 @@ export const appSettings = {
     // ----- settings of an invader laser -----
     laser_invader: {
         size: {
-            'width.%': 5,
-            'height.%':5
+            'width.%': 0.8,
+            'height.%': 4
         },
         speed: 0.1,
         damages: 5

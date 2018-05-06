@@ -11,18 +11,11 @@ export class BoardUtils {
     // this function a board in its initial state
     // describe in the settings (app.setting.ts)
     static createBoard(): Board {
-
-        const i: Laser = {
-            position: {'left.%': 10,'top.%': 1}, exists: true,
-            speed: appSettings.laser_invader.speed,
-            damage: appSettings.laser_invader.damages
-        }
-
        return {
         elements: {
             ship: {
                 life: 100,
-                position: {'left.%': 10,'bottom.%': 1},
+                position: {'left.%': 10,'bottom.%': 0.5},
                 speed: appSettings.ship.speed
             },
             invaders: [
@@ -34,12 +27,12 @@ export class BoardUtils {
             ],
             lasers: {
                 invader: [
-                    {position: {'left.%': 10,'top.%': 1}, exists: true,
+                    {position: {'left.%': 20,'top.%': 20}, exists: true,
                      speed: appSettings.laser_invader.speed,
                      damage: appSettings.laser_invader.damages}
                 ],
                 ship: [
-                    {position: {'left.%': 10,'top.%': 1}, exists: true,
+                    {position: {'left.%': 30,'top.%': 20}, exists: true,
                     speed: appSettings.laser_ship.speed,
                     damage: appSettings.laser_ship.damages}
                 ]

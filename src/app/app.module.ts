@@ -21,8 +21,9 @@ const routes: Routes = [
 // components
 import { BoardComponent } from './components/game/board/board.component';
 import { InvaderComponent } from './components/game/invader/invader.component';
-import { LaserComponent } from './components/game/laser/laser.component';
 import { ShipComponent } from './components/game/ship/ship.component';
+import { LaserInvaderComponent } from './components/game/laser-invader/laser-invader.component';
+import { LaserShipComponent } from './components/game/laser-ship/laser-ship.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,9 @@ import { ShipComponent } from './components/game/ship/ship.component';
     // components
     BoardComponent,
     InvaderComponent,
-    LaserComponent,
-    ShipComponent
+    ShipComponent,
+    LaserInvaderComponent,
+    LaserShipComponent
   ],
   imports: [
     // modules
