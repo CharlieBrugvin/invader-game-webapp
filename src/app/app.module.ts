@@ -3,11 +3,17 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './containers/home/home.component';
+import { GameComponent } from './containers/game/game.component';
+import { ScoreComponent } from './containers/score/score.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    GameComponent,
+    ScoreComponent
   ],
   imports: [
     BrowserModule
