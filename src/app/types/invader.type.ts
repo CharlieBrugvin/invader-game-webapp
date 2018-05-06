@@ -1,5 +1,8 @@
 export interface Invader {
-    position: Position;
+    position: {
+        'top.%': number,
+        'left.%': number
+    };
     speed: number;
     life: number;
     outside: boolean;

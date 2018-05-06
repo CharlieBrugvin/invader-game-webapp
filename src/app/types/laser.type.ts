@@ -1,5 +1,8 @@
 export interface Laser {
-    position: Position;
+    position: {
+        'top.%': number,
+        'left.%': number
+    };
     speed: number;
     damage: number;
     exists: boolean;

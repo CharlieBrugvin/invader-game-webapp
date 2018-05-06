@@ -1,3 +1,6 @@
+import { Laser } from './../types/laser.type';
+import { Ship } from './../types/ship.type';
+import { appSettings } from './../app.setting';
 import { Invader } from './../types/invader.type';
 import { Board } from './../types/board.type';
 
@@ -7,11 +10,44 @@ export class BoardUtils {
 
     // this function a board in its initial state
     // describe in the settings (app.setting.ts)
-    /*
     static createBoard(): Board {
-       
+
+        const i: Laser = {
+            position: {'left.%': 10,'top.%': 1}, exists: true,
+            speed: appSettings.laser_invader.speed,
+            damage: appSettings.laser_invader.damages
+        }
+
+       return {
+        elements: {
+            ship: {
+                life: 100,
+                position: {'left.%': 10,'bottom.%': 1},
+                speed: appSettings.ship.speed
+            },
+            invaders: [
+                {
+                    life: 100, outside: false, 
+                    position: {'left.%': 10,'top.%': 10}, 
+                    speed: appSettings.invader.speed
+                }
+            ],
+            lasers: {
+                invader: [
+                    {position: {'left.%': 10,'top.%': 1}, exists: true,
+                     speed: appSettings.laser_invader.speed,
+                     damage: appSettings.laser_invader.damages}
+                ],
+                ship: [
+                    {position: {'left.%': 10,'top.%': 1}, exists: true,
+                    speed: appSettings.laser_ship.speed,
+                    damage: appSettings.laser_ship.damages}
+                ]
+            }
+        },
+        score: 0
+       }
     }
-    */
 
     // take as inputs the previous board, the time elapsed between now and the last update
     // and the actions of the user
@@ -39,6 +75,8 @@ export class BoardUtils {
             // delete the invaders dead
         }
         */
+        
+        // generate invaders if another is killed
 
         // update the score
     }

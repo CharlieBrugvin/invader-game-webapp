@@ -1,5 +1,8 @@
 export interface Ship {
-    position: Position;
+    position: {
+        'bottom.%': number,
+        'left.%': number
+    };
     speed: number;
     life: number;
 }
