@@ -6,8 +6,18 @@ $board-width: 1400px;
     align-items: center;
 
     .board-container {
+        position: relative;
+
         width: $board-width;
         height: $board-width * 9/16;
+        
         box-shadow: 0px 0px 10px silver;
+
+        app-control-calc {
+            z-index: 2;
+        }
+        app-board {
+            z-index: 1;
+        }
     }
 }

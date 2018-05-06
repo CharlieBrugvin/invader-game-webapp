@@ -5,7 +5,7 @@ import { Ship } from './ship.type';
 export interface Board {
     elements: {
         ship: Ship;
-        invaders: Invader[];
+        invaders: Invader[][]; // each invader is in is own column
         lasers: {
             invader: Laser[];
             ship: Laser[];

@@ -13,11 +13,13 @@ export const appSettings = {
     },
 
     // ------ settings of an invader -----
+
+    invader_column: {
+        number: 10,
+    },
+    
     invader: {
-        size: {
-            'width.%': 5,
-            'height.%':5
-        },
+        'height.%': 5,
         speed: 0.1,
         damages: 5,
         pop_prob: 0.3 // the probability of an invader to be created when an other died

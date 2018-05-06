@@ -14,10 +14,22 @@ import { Component, OnInit, Input } from '@angular/core';
 
   <!-- invaders -->
 
+  <div  *ngFor="let column of board.elements.invaders"
+        class="invader-columns">
+        <app-invader *ngFor="let invader of column" 
+        [invader]="invader" 
+        [style.top.%]="invader['top.%']">
+</app-invader>
+  </div>
+
+  <!--
   <app-invader *ngFor="let invader of board.elements.invaders" 
             [invader]="invader" 
             [ngStyle]="invader.position">
   </app-invader>
+  -->
+
+
 
   <!-- invader lasers  -->
 

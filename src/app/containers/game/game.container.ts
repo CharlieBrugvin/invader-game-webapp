@@ -8,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
   <h1> Game Container </h1>
 
   <div class="board-container">
+  
+    <app-control-calc 
+      (mouseDownOnLeft)="mouseDownOnLeft = true"
+      (mouseUpOnLeft)="mouseDownOnLeft = false"
+      (mouseDownOnMiddle)="mouseDownOnMiddle = true"
+      (mouseUpOnMiddle)="mouseDownOnMiddle = false"
+      (mouseDownOnRight)="mouseDownOnRight = true"
+      (mouseUpOnRight)="mouseDownOnRight = false">
+    </app-control-calc>
+
     <app-board [board]="board">
     </app-board>
+
   </div>
+
+  <pre>
+  debug : 
+  mouseDownOnLeft : {{ mouseDownOnLeft }}
+  mouseDownOnMiddle : {{ mouseDownOnMiddle }}
+  mouseDownOnRight : {{ mouseDownOnRight }}
+  </pre>
 
 
   `,
@@ -19,6 +37,10 @@ import { Component, OnInit } from '@angular/core';
 export class GameContainer implements OnInit {
 
   board: Board = BoardUtils.createBoard();
+
+  mouseDownOnLeft = false;
+  mouseDownOnMiddle = false;
+  mouseDownOnRight = false
 
   constructor() {
   }

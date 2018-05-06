@@ -13,8 +13,7 @@ export class InvaderComponent implements OnInit {
 
   @Input() invader: Invader;
 
-  @HostBinding('style.width.%') width = appSettings.invader.size['width.%'];
-  @HostBinding('style.height.%') height = appSettings.invader.size['height.%'];
+  @HostBinding('style.height.%') height = appSettings.invader['height.%'];
 
   constructor() { }
 
