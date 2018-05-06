@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-score',
-  templateUrl: './score.component.html',
-  styleUrls: ['./score.component.scss']
+  template: `
+    <h1> Score </h1>
+  `,
+  styleUrls: ['./score.container.scss']
 })
-export class ScoreComponent implements OnInit {
+export class ScoreContainer implements OnInit {
 
   constructor() { }
 

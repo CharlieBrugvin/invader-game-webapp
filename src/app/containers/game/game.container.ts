@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  template: `
+  <h1> Game Container </h1>
+  `,
+  styleUrls: ['./game.container.scss']
 })
-export class GameComponent implements OnInit {
+export class GameContainer implements OnInit {
 
   constructor() { }
 
