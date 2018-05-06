@@ -3,12 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from "@angular/router";
 
-// containers
-import { AppComponent } from './app.component';
-import { HomeContainer } from './containers/home/home.container';
-import { GameContainer } from './containers/game/game.container';
-import { ScoreContainer } from './containers/score/score.container';
-
 // routes
 const routes: Routes = [
   { path: '', component: HomeContainer },
@@ -16,9 +10,17 @@ const routes: Routes = [
   { path: 'score', component: ScoreContainer }
  ];
 
+// containers
+import { AppComponent } from './app.component';
+import { HomeContainer } from './containers/home/home.container';
+import { GameContainer } from './containers/game/game.container';
+import { ScoreContainer } from './containers/score/score.container';
+
 // components
-
-
+import { BoardComponent } from './components/game/board/board.component';
+import { InvaderComponent } from './components/game/invader/invader.component';
+import { LaserComponent } from './components/game/laser/laser.component';
+import { ShipComponent } from './components/game/ship/ship.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +28,15 @@ const routes: Routes = [
     AppComponent,
     HomeContainer,
     GameContainer,
-    ScoreContainer
+    ScoreContainer,
     // components
+    BoardComponent,
+    InvaderComponent,
+    LaserComponent,
+    ShipComponent
   ],
   imports: [
+    // modules
     BrowserModule,
     // routes
     RouterModule.forRoot(routes)
