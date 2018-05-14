@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from "@angular/router";
 
-
-
 // containers
 import { AppComponent } from './app.component';
 import { HomeContainer } from './containers/home/home.container';

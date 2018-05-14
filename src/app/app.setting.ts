@@ -1,13 +1,13 @@
-// settings of the applications
+// settings of the application
 export const appSettings = {
 
     // ----- settings of the ship -----
     ship: {
         size: {
-            'width.%': 5,
-            'height.%':5
+            'width.%':  10,
+            'height.%': 10
         },
-        speed: 0.1, // expressed in % per ms.
+        speed: 0.02, // expressed in % per ms.
         damages: 5, // expressed in %
         max_laser_amount: 10 
     },
@@ -15,12 +15,12 @@ export const appSettings = {
     // ------ settings of an invader -----
 
     invader_column: {
-        number: 10,
+        number: 9,
     },
     
     invader: {
         'height.%': 5,
-        speed: 0.1,
+        speed: 0.005,
         damages: 5,
         pop_prob: 0.3 // the probability of an invader to be created when an other died
     },
@@ -31,7 +31,7 @@ export const appSettings = {
             'width.%': 0.8,
             'height.%': 4
         },
-        speed: 0.1,
+        speed: 0.01,
         damages: 5
     },
 
@@ -41,7 +41,7 @@ export const appSettings = {
             'width.%': 0.8,
             'height.%': 4
         },
-        speed: 0.1,
+        speed: 0.01,
         damages: 5
     },
 
@@ -52,6 +52,6 @@ export const appSettings = {
     },
 
     // ----- game -----
-    fps: 20,
+    fps: 60,
 }
 

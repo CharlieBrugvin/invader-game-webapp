@@ -1,8 +1,8 @@
-$board-width: 1400px;
+$board-width: 1000px;
 
 :host {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 
     .board-container {
@@ -13,11 +13,31 @@ $board-width: 1400px;
         
         box-shadow: 0px 0px 10px silver;
 
+        overflow: hidden;
+
         app-control-calc {
             z-index: 2;
         }
         app-board {
             z-index: 1;
         }
+
+        @media screen and (max-width: 800px) {
+              width: 100%;
+              height: 95vh;
+        }
+
+    }
+
+    .debug-box {
+
+        min-width: 300px;
+        overflow: hidden;
+        border: 2px dashed mediumorchid;
+        padding: 5px;
+        margin: 5px;
+        @media screen and (max-width: 800px) {
+            display: none;
+      }
     }
 }

@@ -4,20 +4,26 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   selector: 'app-control-calc',
   template:`
     <div class="left"
-        (mousedown)="mouseDownOnLeft.emit()"
-        (mouseup)  ="mouseUpOnLeft.emit()">
+        (panstart)="downOnLeft.emit()"
+        (panend)  ="upOnLeft.emit()"
+        (touchstart)="downOnLeft.emit()"
+        (touchend)="upOnLeft.emit()">
       GO LEFT
     </div>
     
     <div class="middle"
-        (mousedown)="mouseDownOnMiddle.emit()"
-        (mouseup)  ="mouseUpOnMiddle.emit()">
+        (down)="downOnMiddle.emit()"
+        (mouseup)  ="upOnMiddle.emit()"
+        (touchstart)="downOnMiddle.emit()"
+        (touchend)="upOnMiddle.emit()">
       SHOOT !
     </div>
     
     <div class="right"
-        (mousedown)="mouseDownOnRight.emit()"
-        (mouseup)  ="mouseUpOnRight.emit()">
+        (down)="downOnRight.emit()"
+        (mouseup)  ="upOnRight.emit()"
+        (touchstart)="downOnRight.emit()"
+        (touchend)="upOnRight.emit()">
       GO RIGHT
     </div>
   `,
@@ -25,18 +31,22 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class ControlCalcComponent implements OnInit {
 
-  @Output() mouseDownOnLeft: EventEmitter<null> = new EventEmitter();
-  @Output() mouseUpOnLeft: EventEmitter<null> = new EventEmitter();
+  @Output() downOnLeft: EventEmitter<null> = new EventEmitter();
+  @Output() upOnLeft: EventEmitter<null> = new EventEmitter();
 
-  @Output() mouseDownOnMiddle: EventEmitter<null> = new EventEmitter();
-  @Output() mouseUpOnMiddle: EventEmitter<null> = new EventEmitter();
+  @Output() downOnMiddle: EventEmitter<null> = new EventEmitter();
+  @Output() upOnMiddle: EventEmitter<null> = new EventEmitter();
 
-  @Output() mouseDownOnRight: EventEmitter<null> = new EventEmitter();
-  @Output() mouseUpOnRight: EventEmitter<null> = new EventEmitter();
+  @Output() downOnRight: EventEmitter<null> = new EventEmitter();
+  @Output() upOnRight: EventEmitter<null> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  test() {
+    console.log('wesh')
   }
 
 }

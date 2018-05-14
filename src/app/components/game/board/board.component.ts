@@ -1,3 +1,4 @@
+import { BoardUtils } from './../../../classes/BoardUtils.class';
 import { appSettings } from './../../../app.setting';
 import { Board } from './../../../types/board.type';
 import { Component, OnInit, Input } from '@angular/core';
@@ -56,7 +57,7 @@ export class BoardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.board);
+   
   }
 
 }
