@@ -42,7 +42,6 @@ export class GameContainer implements OnInit {
   // fps
   updateEveryMs = 1000 / appSettings.fps; 
 
-
   constructor() {
   }
 

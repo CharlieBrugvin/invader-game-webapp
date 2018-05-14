@@ -1,18 +1,22 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ElementRef, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-control-calc',
   template:`
     <div class="left"
-        (panstart)="downOnLeft.emit()"
-        (panend)  ="upOnLeft.emit()"
+        (mousedown)="downOnLeft.emit()"
+        (mouseup)  ="upOnLeft.emit()"
+
         (touchstart)="downOnLeft.emit()"
-        (touchend)="upOnLeft.emit()">
+        (touchend)="upOnLeft.emit()"
+        
+        (keydown)="onKeyDown('left')"
+        >
       GO LEFT
     </div>
     
     <div class="middle"
-        (down)="downOnMiddle.emit()"
+        (mousedown)="downOnMiddle.emit()"
         (mouseup)  ="upOnMiddle.emit()"
         (touchstart)="downOnMiddle.emit()"
         (touchend)="upOnMiddle.emit()">
@@ -20,7 +24,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
     </div>
     
     <div class="right"
-        (down)="downOnRight.emit()"
+        (mousedown)="downOnRight.emit()"
         (mouseup)  ="upOnRight.emit()"
         (touchstart)="downOnRight.emit()"
         (touchend)="upOnRight.emit()">
@@ -40,13 +44,54 @@ export class ControlCalcComponent implements OnInit {
   @Output() downOnRight: EventEmitter<null> = new EventEmitter();
   @Output() upOnRight: EventEmitter<null> = new EventEmitter();
 
-  constructor() { }
+  // we also emit if the user uses keys
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    switch(event.code) { 
+      case 'ArrowLeft': {
+        this.downOnLeft.emit();
+        break; 
+      } 
+      case 'ArrowRight': { 
+        this.downOnRight.emit();
+        break; 
+      }
+      case 'Space': {
+        this.downOnMiddle.emit();
+        break; 
+      } 
+      case 'Space': {
+        this.downOnMiddle.emit();
+        break; 
+      } 
+   } 
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  onKeyUp(event: KeyboardEvent) {
+    switch(event.code) { 
+      case 'ArrowLeft': {
+        this.upOnLeft.emit();
+        break; 
+      } 
+      case 'ArrowRight': { 
+        this.upOnRight.emit();
+        break; 
+      }
+      case 'Space': {
+        this.upOnMiddle.emit();
+        break; 
+      } 
+      case 'Space': {
+        this.upOnMiddle.emit();
+        break; 
+      } 
+   }
+  }
+
+  constructor(private element: ElementRef) {
+  }
 
   ngOnInit() {
   }
-
-  test() {
-    console.log('wesh')
-  }
-
 }
