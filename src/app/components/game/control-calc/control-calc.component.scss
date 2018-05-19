@@ -20,7 +20,7 @@
     
     .left, .right {
         border: 1px solid silver;
-        width: 20%;
+        width: 20%; // TODO put this value as a setting
     };
     .middle {
         flex-grow: 1;

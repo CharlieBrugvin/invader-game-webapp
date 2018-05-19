@@ -28,8 +28,8 @@ export const appSettings = {
     // ----- settings of a ship laser ------
     laser_ship: {
         size: {
-            'width.%': 0.8,
-            'height.%': 4
+            'width.%': 1.5,
+            'height.%': 6
         },
         speed: 0.01,
         damages: 5
@@ -42,7 +42,7 @@ export const appSettings = {
             'height.%': 4
         },
         speed: 0.01,
-        damages: 5
+        damages: 10
     },
 
     // ---- points management -----
@@ -52,6 +52,6 @@ export const appSettings = {
     },
 
     // ----- game -----
-    fps: 15,
+    fps: 30,
 }
 

@@ -1,3 +1,5 @@
+import { UserInputs } from './../../types/userInputs.type';
+import { LaserUtils } from './../../classes/LaserUtils.class';
 import { appSettings } from './../../app.setting';
 import { Board } from './../../types/board.type';
 import { BoardUtils } from './../../classes/BoardUtils.class';
@@ -9,12 +11,15 @@ import { Component, OnInit } from '@angular/core';
   <div class="board-container">
   
     <app-control-calc 
-      (downOnLeft)="downOnLeft = true"
-      (upOnLeft)="downOnLeft = false"
-      (downOnMiddle)="downOnMiddle = true"
-      (upOnMiddle)="downOnMiddle = false"
-      (downOnRight)="downOnRight = true"
-      (upOnRight)="downOnRight = false">
+      (downOnLeft)="userInputs.shipMoves = 'left'"
+      (upOnLeft)="userInputs.shipMoves = null"
+
+      (downOnMiddle)="userInputs.shipShoot = true"
+      (upOnMiddle)="userInputs.shipShoot = false"
+
+      (downOnRight)="userInputs.shipMoves = 'right'"
+      (upOnRight)="userInputs.shipMoves = null"
+    >
     </app-control-calc>
 
     <app-board [board]="board">
@@ -23,6 +28,9 @@ import { Component, OnInit } from '@angular/core';
   </div>
 
   <pre class="debug-box">
+    <h5>User inputs</h5>
+    {{userInputs | json }}
+    <h5>Board</h5>
     {{ board | json}}
   </pre>
   `,
@@ -39,6 +47,11 @@ export class GameContainer implements OnInit {
   downOnMiddle = false;
   downOnRight = false
 
+  userInputs: UserInputs = {
+    shipMoves: null,
+    shipShoot: false
+  }
+
   // fps
   updateEveryMs = 1000 / appSettings.fps; 
 
@@ -47,8 +60,7 @@ export class GameContainer implements OnInit {
 
   ngOnInit() {
     setInterval(() => {
-      BoardUtils.moveBoardElements(this.board, this.updateEveryMs, 
-        this.downOnLeft ? 'left' : this.downOnRight ? 'right' : null);
+      this.board = BoardUtils.updateBoard(this.board, this.updateEveryMs, this.userInputs)
     }, this.updateEveryMs)
   }
 

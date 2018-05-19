@@ -31,7 +31,9 @@ $board-width: 1000px;
 
     .debug-box {
         min-width: 300px;
-        overflow: hidden;
+        max-height: 90vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
         border: 2px dashed mediumorchid;
         padding: 5px;
         margin: 5px;

@@ -56,7 +56,7 @@ export class ControlCalcComponent implements OnInit {
         this.downOnRight.emit();
         break; 
       }
-      case 'Space': {
+      case 'ArrowUp': {
         this.downOnMiddle.emit();
         break; 
       } 
@@ -78,7 +78,7 @@ export class ControlCalcComponent implements OnInit {
         this.upOnRight.emit();
         break; 
       }
-      case 'Space': {
+      case 'ArrowUp': {
         this.upOnMiddle.emit();
         break; 
       } 

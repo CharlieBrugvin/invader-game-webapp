@@ -17,15 +17,13 @@ export class InvaderUtils {
     }
 
     // move an invader according to a period in ms
-    // only move if the invader is inside the board
+    // it only moves if the invader is inside the board
     public static move(invader: Invader, elapsedTimeMs: number): Invader {
-        
-        const newTop =  invader.insideBoard ?
-                             invader['top.%'] + invader.speed * elapsedTimeMs
-                           : invader['top.%'];
-
-        const newInSideBoard = invader['top.%'] > 100 ? false : true;
-
+        if (!invader.insideBoard) {
+            return invader;
+        }
+        const newTop = invader['top.%'] + invader.speed * elapsedTimeMs;
+        const newInSideBoard = newTop > 100 ? false : true;
         return {
             ...invader,
             'top.%':  newTop,
