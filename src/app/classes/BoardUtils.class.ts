@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 // this class contains static methods used to manage a Board (creation, update, ...)
 export class BoardUtils {
 
-    // this function a board in its initial state
+    // this function create a board in its initial state
     // describe in the settings (app.setting.ts)
     static createBoard(): Board {
 
@@ -111,7 +111,7 @@ export class BoardUtils {
                 })
             )
         )
-
+        
         // we move the lasers
         board.elements.lasers.invader = board.elements.lasers.invader.map( 
             laser => ({
@@ -122,7 +122,6 @@ export class BoardUtils {
                 } 
                 })
             )
-
         board.elements.lasers.ship = board.elements.lasers.ship.map( 
             laser => ({
                 ...laser,
