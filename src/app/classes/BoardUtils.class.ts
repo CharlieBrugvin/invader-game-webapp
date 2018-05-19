@@ -1,3 +1,6 @@
+import { LaserUtils } from './LaserUtils.class';
+import { InvaderUtils } from './InvaderUtils.class';
+import { ShipUtils } from './ShipUtils.class';
 import { Laser } from './../types/laser.type';
 import { Ship } from './../types/ship.type';
 import { appSettings } from './../app.setting';
@@ -9,44 +12,20 @@ import * as _ from 'lodash';
 export class BoardUtils {
 
     // this function create a board in its initial state
-    // describe in the settings (app.setting.ts)
-    static createBoard(): Board {
+    static init(): Board {
 
-        // generation of the columns of invader, with one invader on the middle
-        const firstInvader: Invader = {
-            life: 100, outside: false, 
-            'top.%': 1, 
-            speed: appSettings.invader.speed
-        }
+        // TODO : create a util class to manage the invaderColums
         const invaderColumns = _.times(appSettings.invader_column.number)
                         .map( (val, index) => 
-                            Math.floor(appSettings.invader_column.number / 2) === index ? [firstInvader] : []
+                            Math.floor(appSettings.invader_column.number / 2) === index ? [InvaderUtils.create()] : []
                         );
         return {
             elements: {
-                ship: {
-                    life: 100,
-                    position: {'left.%': 50,'bottom.%': 0.5},
-                    speed: appSettings.ship.speed
-                },
+                ship: ShipUtils.init(),
                 invaders: invaderColumns,
                 lasers: {
-                    invader: [] 
-                    /*
-                    [
-                        {position: {'left.%': 20,'top.%': 20}, exists: true,
-                            speed: appSettings.laser_invader.speed,
-                            damage: appSettings.laser_invader.damages}
-                    ],
-                    */,
+                    invader: [],
                     ship: []
-                    /*
-                    [
-                        {position: {'left.%': 30,'top.%': 20}, exists: true,
-                        speed: appSettings.laser_ship.speed,
-                        damage: appSettings.laser_ship.damages}
-                    ]
-                    */
                 }
             },
             score: 0
@@ -54,7 +33,7 @@ export class BoardUtils {
     }
 
     // take as inputs the previous board, the time elapsed between now and the last update
-    // and the actions of the user
+    // and the actions of the user, and return an new board
     public static updateBoard(oldBoard: Board, elapsedTime: number, input: Input) {
         
         // used to move all the elements according to their speed
@@ -88,51 +67,22 @@ export class BoardUtils {
 
     // ! this function directly change the value of the board argument (passed as reference)
     public static moveBoardElements(board: Board, elapsedTime: number, shipMoves: 'left' | 'right' | null): void {
-        // --- move of the ship ----
-
-        let leftPos = board.elements.ship.position['left.%'];
-        if (shipMoves === 'left') {
-            leftPos -= appSettings.ship.speed * elapsedTime;
-        } else if (shipMoves ==='right') {
-            leftPos += appSettings.ship.speed * elapsedTime;
-        }
-        // is the ship outside ?
-        leftPos = leftPos < 0 ? 0 : leftPos;
-        leftPos = leftPos > 100 - appSettings.ship.size['width.%'] ? 100 - appSettings.ship.size['width.%'] : leftPos;
-
-        board.elements.ship.position['left.%'] = leftPos;
-    
-        // we move the invaders
+        // --- ship moves ----
+        board.elements.ship = ShipUtils.move(board.elements.ship, elapsedTime, shipMoves);
+        // --- invaders moves --- 
+        // TODO : i could probably add a move function in columnUntil
         board.elements.invaders = board.elements.invaders.map(
-            column => column.map(
-                invader => ({
-                    ...invader, 
-                    'top.%': invader['top.%'] + appSettings.invader.speed * elapsedTime
-                })
-            )
+            column => column.map(invader => 
+                InvaderUtils.move(invader, elapsedTime)
+        ))
+        // ---- lasers moves ---- 
+        board.elements.lasers.invader = board.elements.lasers.invader.map(
+            laser => LaserUtils.move(laser, elapsedTime, 'bottom')
         )
-        
-        // we move the lasers
-        board.elements.lasers.invader = board.elements.lasers.invader.map( 
-            laser => ({
-                ...laser,
-                position: {
-                    ...laser.position,
-                    'top.%': laser.position['top.%'] + appSettings.laser_invader.speed * elapsedTime
-                } 
-                })
-            )
-        board.elements.lasers.ship = board.elements.lasers.ship.map( 
-            laser => ({
-                ...laser,
-                position: {
-                    ...laser.position,
-                    'top.%': laser.position['top.%'] - appSettings.laser_ship.speed * elapsedTime
-                } 
-                })
-            )
+        board.elements.lasers.invader = board.elements.lasers.invader.map(
+            laser => LaserUtils.move(laser, elapsedTime, 'top')
+        )
     }
-
 }
 
 interface Input {

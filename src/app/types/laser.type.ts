@@ -3,7 +3,12 @@ export interface Laser {
         'top.%': number,
         'left.%': number
     };
+    size: {
+        'height.%': number,
+        'width.%': number
+    }
     speed: number;
     damage: number;
-    exists: boolean;
+    insideBoard: boolean;
+    destroyed: boolean;
 }

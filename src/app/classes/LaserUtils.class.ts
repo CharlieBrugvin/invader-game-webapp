@@ -4,6 +4,7 @@ import { Laser } from './../types/laser.type';
 export class LaserUtils {
 
     // move a laser according to a period of time in ms
+    // TODO : if the laser goes outside, stop to move it and changes the flag
     public static move(laser: Laser, elapsedTimeMs: number, direction: 'top' | 'bottom'): Laser {
         return {
             ...laser,
@@ -15,6 +16,4 @@ export class LaserUtils {
             }
         }
     }
-
-    
 }

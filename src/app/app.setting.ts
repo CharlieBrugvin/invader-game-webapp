@@ -52,6 +52,6 @@ export const appSettings = {
     },
 
     // ----- game -----
-    fps: 60,
+    fps: 15,
 }
 

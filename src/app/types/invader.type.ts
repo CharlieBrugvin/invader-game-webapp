@@ -1,6 +1,7 @@
 export interface Invader {
-    'top.%': number,
+    'top.%': number;
+    'height.%': number;
     speed: number;
     life: number;
-    outside: boolean;
+    insideBoard: boolean;
 }
