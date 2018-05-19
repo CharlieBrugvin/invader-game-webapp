@@ -60,6 +60,7 @@ export class GameContainer implements OnInit {
 
   ngOnInit() {
     
+    
     setInterval(() => {
       this.board = BoardUtils.updateBoard(this.board, this.updateEveryMs, this.userInputs)
       if (this.userInputs.shipShoot) {

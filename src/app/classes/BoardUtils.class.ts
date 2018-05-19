@@ -43,7 +43,7 @@ export class BoardUtils {
         // used to move all the elements according to their speed
         this.moveBoardElements(newBoard, elapsedTime, userInputs.shipMoves);
 
-        // catch the invaders outside
+        // catch the amount invaders outside
         let amountOfInvadersOutside = 0;
         newBoard.elements.invaders.forEach( column => column.forEach(invader => {
             if(!invader.insideBoard) amountOfInvadersOutside++
@@ -53,24 +53,31 @@ export class BoardUtils {
         this.deleteElementsOutside(newBoard);
 
         //detect collisions : collision between a ship and a laser, an invader and a laser
+        // and apply the changes on life elements
+        this.applyCollisions(newBoard);
 
-        /*
-        changeElementsSate(board, collisions): void {
-            // put destroyed on laser collied
-            // decrease life on invaders touched
-        }
-        */
+        // catch the amount of invaders dead
+        let amountOfInvadersDead = 0;
+        newBoard.elements.invaders.forEach( column => column.forEach(invader => {
+            if(invader.life <= 0) amountOfInvadersDead++
+        }))
 
-        /*
-        deleteElements(board): invaderDeads: Invader[] {
-            // delete the invaders dead
-            // the laser destroyed
-        }
-        */
+        this.deleteLasersAndInvadersDeads(newBoard);
         
         // generate invaders if another is killed
+        if (amountOfInvadersDead > 0) {
+            // TODO put that into an external method
+            const randomColumIndex = Math.floor(Math.random()*newBoard.elements.invaders.length);
+            newBoard.elements.invaders[randomColumIndex].push(InvaderUtils.create())
+            
+            if (Math.random() < appSettings.invader.pop_prob) {
+                const randomColumIndex = Math.floor(Math.random()*newBoard.elements.invaders.length);
+                newBoard.elements.invaders[randomColumIndex].push(InvaderUtils.create())
+            }
+        }
 
-        // shoot a laser
+
+        // ship shoot a laser
         if (userInputs.shipShoot) {
             newBoard.elements.lasers.ship.push(
                 LaserUtils.create('ship',
@@ -79,7 +86,11 @@ export class BoardUtils {
             )
         }
 
+        // an invader shoot a laser
+
         // update the score
+        newBoard.score += appSettings.points.invader_killed * amountOfInvadersDead;
+        newBoard.score += appSettings.points.invader_went_outside * amountOfInvadersOutside;
 
         return newBoard;
     }
@@ -117,11 +128,67 @@ export class BoardUtils {
                 }
             }
     }
+
+    // TODO i could split this funciton into sub methods in files such as collisionUtils.class.ts
+    public static applyCollisions(board: Board): void {
+
+        // find collisions between laser ships and invaders
+        board.elements.lasers.ship
+            .filter(laser => !laser.destroyed)
+            .forEach( laser => {
+                // find the corresponding invader column
+                const laserPosLeft = laser.position['left.%'] + laser.size['width.%'] / 2;
+                const columnIndex = Math.floor(laserPosLeft / (100 / appSettings.invader_column.number));
+                // find an eventual colision between the laser and an invader of this column
+                const invaderCollided = board.elements.invaders[columnIndex].find( invader => {
+                    return invader['top.%'] + invader['height.%'] > laser.position['top.%']
+                })
+                // apply the damages
+                if (invaderCollided) {
+                    invaderCollided.life -= laser.damage;
+                    laser.destroyed = true;
+                }
+            })
+
+        // detect collision between invader lasers and ships
+        board.elements.lasers.invader
+            .filter(laser => !laser.destroyed)
+            .forEach( laser => {
+                // calculate the point on the bottom center of the laser
+                const laserTop = laser.position['top.%'] + laser.size['height.%']; 
+                const laserLeft = laser.position['left.%'] + laser.size['width.%'] / 2;
+                // and the positions of the ship
+                const shipTop = 100 - board.elements.ship.position['bottom.%'] -  board.elements.ship.size['height.%'];
+                const shipLeftBorderLeft = board.elements.ship.position['left.%'];
+                const shipRightBorderLeft = board.elements.ship.position['left.%'] + board.elements.ship.size['width.%'];
+
+                if (laserTop > shipTop && shipLeftBorderLeft < laserLeft && laserLeft < shipRightBorderLeft ) {
+                    // apply damages is the boxes are in collision
+                    laser.destroyed = true;
+                    board.elements.ship.life -= laser.damage;                    
+                }
+            })
+
+    }
+
+    public static deleteLasersAndInvadersDeads(board: Board) {
+        board.elements = {
+            ...board.elements,
+            lasers: {
+                invader: board.elements.lasers.invader.filter(laser => !laser.destroyed),
+                ship: board.elements.lasers.ship.filter(laser => !laser.destroyed)
+            },
+            invaders: board.elements.invaders.map( column => column.filter(invader => invader.life > 0))
+        }
+    }
 }
 
-interface BoardColision {
+interface BoardCollisions {
     invaderWithLaser: {
-        invaderIndex: number,
+        invader: {
+            column: number,
+            index: number
+        }
         LaserIndex: number
     }[],
 

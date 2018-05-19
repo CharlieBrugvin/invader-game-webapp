@@ -4,25 +4,25 @@ export const appSettings = {
     // ----- settings of the ship -----
     ship: {
         size: {
-            'width.%':  10,
+            'width.%':  12,
             'height.%': 10
         },
-        speed: 0.02, // expressed in % per ms.
-        damages: 5, // expressed in %
-        max_laser_amount: 10 
+        speed: 0.05, // expressed in % per ms.
+        damages: 5, // expressed in % // TODO is it used ?
+        max_laser_amount: 10 // TODO is it used ?
     },
 
     // ------ settings of an invader -----
 
     invader_column: {
-        number: 9,
+        number: 12,
     },
     
     invader: {
-        'height.%': 5,
-        speed: 0.030,
-        damages: 5,
-        pop_prob: 0.3 // the probability of an invader to be created when an other died
+        'height.%': 10,
+        speed: 0.003,
+        damages: 5, // TODO is it used ?
+        pop_prob: 0.25 // the probability of an invader to be created when an other died
     },
 
     // ----- settings of a ship laser ------
@@ -31,8 +31,8 @@ export const appSettings = {
             'width.%': 1.5,
             'height.%': 6
         },
-        speed: 0.1,
-        damages: 5
+        speed: 0.05,
+        damages: 35
     },
 
     // ----- settings of an invader laser -----
@@ -42,7 +42,7 @@ export const appSettings = {
             'height.%': 4
         },
         speed: 0.1,
-        damages: 10
+        damages: 5
     },
 
     // ---- points management -----

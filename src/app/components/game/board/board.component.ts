@@ -17,10 +17,12 @@ import { Component, OnInit, Input } from '@angular/core';
 
   <div  *ngFor="let column of board.elements.invaders"
         class="invader-columns">
+
         <app-invader *ngFor="let invader of column" 
-        [invader]="invader" 
-        [style.top.%]="invader['top.%']">
-</app-invader>
+                    [invader]="invader" 
+                    [style.top.%]="invader['top.%']">
+        </app-invader>
+        
   </div>
 
   <!--
