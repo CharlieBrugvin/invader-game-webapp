@@ -12,7 +12,7 @@ export class InvaderUtils {
             'height.%': appSettings.invader['height.%'],
             speed: appSettings.invader.speed,
             life: 100,
-            insideBoard: true
+            insideBoard: true,
         }
     }
 
@@ -30,4 +30,5 @@ export class InvaderUtils {
             insideBoard: newInSideBoard
         }
     }
+
 }

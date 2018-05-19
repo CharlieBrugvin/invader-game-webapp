@@ -1,3 +1,5 @@
+import { element } from 'protractor';
+import { ControlCalcComponent } from './../components/game/control-calc/control-calc.component';
 import { UserInputs } from './../types/userInputs.type';
 import { LaserUtils } from './LaserUtils.class';
 import { InvaderUtils } from './InvaderUtils.class';
@@ -36,34 +38,46 @@ export class BoardUtils {
     // and the actions of the user, and return an new board
     public static updateBoard(oldBoard: Board, elapsedTime: number, userInputs: UserInputs): Board {
 
-        let newBoard: Board = oldBoard; // TODO make a deep copy ?
+        let newBoard: Board = oldBoard;
 
         // used to move all the elements according to their speed
         this.moveBoardElements(newBoard, elapsedTime, userInputs.shipMoves);
 
-        // delete the elements which are outside the board
+        // catch the invaders outside
+        let amountOfInvadersOutside = 0;
+        newBoard.elements.invaders.forEach( column => column.forEach(invader => {
+            if(!invader.insideBoard) amountOfInvadersOutside++
+        }))
 
-        //detect collisions : collision between a ship and a laser, an invader and a laser,
-        // detectCollisions(board): BoardColision[]
+        // delete the elements outside the board
+        this.deleteElementsOutside(newBoard);
+
+        //detect collisions : collision between a ship and a laser, an invader and a laser
 
         /*
-        applyCollisions(board, collisions): Board {
-            // damages : laser and invader or laser and ship
-            // laser outside doesn't exists anymore
-            // invader outside doesn't exists anymore
+        changeElementsSate(board, collisions): void {
+            // put destroyed on laser collied
+            // decrease life on invaders touched
         }
         */
 
         /*
-        // deletes the laser / invaders outside and the invaders deads
-        deleteElements(board): {board, invaderDeads: Invader[]} {
-            // delete the laser outside
-            // delete the invaders outside
+        deleteElements(board): invaderDeads: Invader[] {
             // delete the invaders dead
+            // the laser destroyed
         }
         */
         
         // generate invaders if another is killed
+
+        // shoot a laser
+        if (userInputs.shipShoot) {
+            newBoard.elements.lasers.ship.push(
+                LaserUtils.create('ship',
+                100 - newBoard.elements.ship.position['bottom.%'] - newBoard.elements.ship.size['height.%'], 
+                newBoard.elements.ship.position['left.%'] + newBoard.elements.ship.size['width.%'] / 2)
+            )
+        }
 
         // update the score
 
@@ -76,14 +90,11 @@ export class BoardUtils {
         if (shipMoves) {
             board.elements.ship = ShipUtils.move(board.elements.ship, elapsedTime, shipMoves);
         }
-        
         // --- invaders moves --- 
         // TODO : i could probably add a move function in columnUntil
         board.elements.invaders = board.elements.invaders.map(
-            column => column.map(invader => 
-                InvaderUtils.move(invader, elapsedTime)
-        ));
-
+            column => column.map(invader => InvaderUtils.move(invader, elapsedTime))
+            )
         // ---- lasers moves ----
         board.elements.lasers.invader = board.elements.lasers.invader.map(
             laser => LaserUtils.move(laser, elapsedTime, 'bottom')
@@ -91,6 +102,20 @@ export class BoardUtils {
         board.elements.lasers.ship = board.elements.lasers.ship.map(
             laser => LaserUtils.move(laser, elapsedTime, 'top')
         )
+    }
+
+    // directly changes the board passed by reference
+    public static deleteElementsOutside(board : Board): void {
+        board.elements = {
+                ...board.elements,
+                invaders: board.elements.invaders.map(column => column.filter(invader => {
+                    return invader.insideBoard
+                })),
+                lasers: {
+                    invader: board.elements.lasers.invader.filter(laser => laser.insideBoard),
+                    ship: board.elements.lasers.ship.filter(laser => laser.insideBoard)
+                }
+            }
     }
 }
 
@@ -100,9 +125,5 @@ interface BoardColision {
         LaserIndex: number
     }[],
 
-    shipWithLaser: number[], // laser index array
-
-    laserOutside: number[], // laser index array
-
-    invaderOutside: number[], // invader index array
+    shipWithLaser: number[],
 }

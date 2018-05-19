@@ -20,7 +20,7 @@ export const appSettings = {
     
     invader: {
         'height.%': 5,
-        speed: 0.005,
+        speed: 0.030,
         damages: 5,
         pop_prob: 0.3 // the probability of an invader to be created when an other died
     },
@@ -31,7 +31,7 @@ export const appSettings = {
             'width.%': 1.5,
             'height.%': 6
         },
-        speed: 0.01,
+        speed: 0.1,
         damages: 5
     },
 
@@ -41,7 +41,7 @@ export const appSettings = {
             'width.%': 0.8,
             'height.%': 4
         },
-        speed: 0.01,
+        speed: 0.1,
         damages: 10
     },
 
