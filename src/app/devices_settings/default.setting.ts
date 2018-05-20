@@ -4,7 +4,7 @@ export const defaultSetting = {
         ship: {
             size: {
                 'width.%':  12,
-                'height.%': 10
+                'height.%': 4
             },
             speed: 0.05, // expressed in % per ms.
             max_laser_amount: 10 // TODO is it used ?
@@ -17,7 +17,7 @@ export const defaultSetting = {
         },
         
         invader: {
-            'height.%': 10,
+            'height.%': 5,
             speed: {
                 min: 0.001,
                 max: 0.008
