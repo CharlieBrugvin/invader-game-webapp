@@ -97,17 +97,19 @@ export class BoardUtils {
       );
     }
 
-    // an invader shoot a laser
+    // invader shoot a laser
     newBoard.elements.invaders.forEach(column =>
       column.forEach(invader => {
-        if (Math.random() < appSettings.invader.probability_shooting * elapsedTime) {
-            console.log('invader shoot')
+        if (
+          Math.random() <
+          appSettings.invader.probability_shooting * elapsedTime
+        ) {
           newBoard.elements.lasers.invader.push(InvaderUtils.newLaser(invader));
         }
       })
     );
 
-    // -------- update the score -------- 
+    // -------- update the score --------
     newBoard.score += appSettings.points.invader_killed * amountOfInvadersDead;
     newBoard.score +=
       appSettings.points.invader_went_outside * amountOfInvadersOutside;

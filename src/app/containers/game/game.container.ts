@@ -1,5 +1,3 @@
-import { RandomUtils } from './../../classes/randomUtils.class';
-import { InvaderColumnUtils } from './../../classes/InvaderColumns.class';
 import { UserInputs } from './../../types/userInputs.type';
 import { appSettings } from './../../app.setting';
 import { Board } from './../../types/board.type';
@@ -57,9 +55,6 @@ export class GameContainer implements OnInit {
   updateEveryMs = 1000 / appSettings.fps; 
 
   constructor() {
-    for (let i = 0; i <100; i++) {
-      console.log(RandomUtils.getFloat(0.5,0.7))
-    }
   }
 
   ngOnInit() {
@@ -72,5 +67,4 @@ export class GameContainer implements OnInit {
       }
     }, this.updateEveryMs)
   }
-
 }
