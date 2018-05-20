@@ -1,9 +1,67 @@
+
+
 :host {
     display: flex;
     flex-direction: column-reverse;
     position: absolute;
-    
+
     img {
         width: 100%;
+    }
+
+    img.isGoingRight {
+        animation-name: goingRight;
+        animation-duration:0.5s;
+    }
+    img.isGoingLeft {
+        animation-name: goingLeft;
+        animation-duration:0.5s;
+    }
+
+    img.isTouchedByLaser {
+        animation-name: touchedByLaser;
+        animation-duration:0.5s;
+    }
+
+    .life {
+        color: red;
+        text-align: right;
+        font-weight: bold;
+        size: 1.5em;
+        font-family: 'Arial';
+        opacity: 0.7;
+    }
+}
+
+// animations
+
+
+@keyframes goingRight {
+    30% {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes goingLeft {
+    30% {
+        transform: rotate(-10deg);
+    }
+}
+
+@keyframes touchedByLaser {
+    10% {
+        opacity: 0.5;
+    }
+    30% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    70% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.5;
     }
 }

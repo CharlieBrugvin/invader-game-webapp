@@ -213,7 +213,10 @@ export class BoardUtils {
         ) {
           // apply damages is the boxes are in collision
           laser.destroyed = true;
-          board.elements.ship.life -= laser.damage;
+          board.elements.ship = {
+            ...board.elements.ship,
+            life: board.elements.ship.life - laser.damage
+          }
         }
       });
   }
