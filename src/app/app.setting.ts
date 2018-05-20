@@ -8,7 +8,6 @@ export const appSettings = {
             'height.%': 10
         },
         speed: 0.05, // expressed in % per ms.
-        damages: 5, // expressed in % // TODO is it used ?
         max_laser_amount: 10 // TODO is it used ?
     },
 
@@ -20,9 +19,12 @@ export const appSettings = {
     
     invader: {
         'height.%': 10,
-        speed: 0.003,
-        damages: 5, // TODO is it used ?
-        pop_prob: 0.25 // the probability of an invader to be created when an other died
+        speed: {
+            min: 0.002,
+            max: 0.006
+        },
+        probability_shooting: 0.0005, // expressed in number of lasers shot by one invader during 1 ms
+        probabity_creation: 0.25 // the probability of an invader to be created when an other died
     },
 
     // ----- settings of a ship laser ------
@@ -31,7 +33,10 @@ export const appSettings = {
             'width.%': 1.5,
             'height.%': 6
         },
-        speed: 0.05,
+        speed: {
+            min: 0.07,
+            max: 0.09
+        },
         damages: 35
     },
 
@@ -41,7 +46,10 @@ export const appSettings = {
             'width.%': 0.8,
             'height.%': 4
         },
-        speed: 0.1,
+        speed: {
+            min: 0.03,
+            max: 0.05
+        },
         damages: 5
     },
 
@@ -52,6 +60,6 @@ export const appSettings = {
     },
 
     // ----- game -----
-    fps: 30,
+    fps: 60,
 }
 

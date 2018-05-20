@@ -6,6 +6,7 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
   selector: 'app-invader',
   template: `
   life : {{ invader.life }}
+  column : {{ invader.columnIndex}}
   `,
   styleUrls: ['./invader.component.scss']
 })
