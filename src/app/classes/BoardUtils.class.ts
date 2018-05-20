@@ -1,3 +1,4 @@
+import { InvaderColumnUtils } from './InvaderColumns.class';
 import { element } from 'protractor';
 import { ControlCalcComponent } from './../components/game/control-calc/control-calc.component';
 import { UserInputs } from './../types/userInputs.type';
@@ -15,12 +16,14 @@ import * as _ from 'lodash';
 export class BoardUtils {
 
     // this function create a board in its initial state
-    static init(): Board {
-        // TODO : create a util class to manage the invaderColums
-        const invaderColumns = _.times(appSettings.invader_column.number)
-                        .map( (val, index) => 
-                            Math.floor(appSettings.invader_column.number / 2) === index ? [InvaderUtils.create()] : []
-                        );
+    // one invader is generated
+    static init(invadersAmount: number = 1): Board {
+        
+        let invaderColumns = InvaderColumnUtils.initEmpty();
+        for (let i = 0; i < invadersAmount; i++) {
+            invaderColumns = InvaderColumnUtils.addInvader(invaderColumns)
+        }
+
         return {
             elements: {
                 ship: ShipUtils.init(),
@@ -66,16 +69,11 @@ export class BoardUtils {
         
         // generate invaders if another is killed
         if (amountOfInvadersDead > 0) {
-            // TODO put that into an external method
-            const randomColumIndex = Math.floor(Math.random()*newBoard.elements.invaders.length);
-            newBoard.elements.invaders[randomColumIndex].push(InvaderUtils.create())
-            
+            newBoard.elements.invaders = InvaderColumnUtils.addInvader(newBoard.elements.invaders);
             if (Math.random() < appSettings.invader.pop_prob) {
-                const randomColumIndex = Math.floor(Math.random()*newBoard.elements.invaders.length);
-                newBoard.elements.invaders[randomColumIndex].push(InvaderUtils.create())
+                newBoard.elements.invaders = InvaderColumnUtils.addInvader(newBoard.elements.invaders);
             }
         }
-
 
         // ship shoot a laser
         if (userInputs.shipShoot) {

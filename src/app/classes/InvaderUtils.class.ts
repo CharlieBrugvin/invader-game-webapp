@@ -3,7 +3,7 @@ import { Invader } from './../types/invader.type';
 
 // toolbox used to update an invader
 export class InvaderUtils {
-    
+
     // create an invader with a given top value
     // default top value is just above the board
     public static create(topPercent: number = -appSettings.invader['height.%']): Invader {
@@ -30,5 +30,4 @@ export class InvaderUtils {
             insideBoard: newInSideBoard
         }
     }
-
 }
