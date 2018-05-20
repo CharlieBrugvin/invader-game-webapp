@@ -5,6 +5,8 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 @Component({
   selector: 'app-laser-invader',
   template:`
+  <img src="../../../../assets/game_pictures/laser_invader.png" 
+  alt="">
   `,
   styleUrls: ['./laser-invader.component.scss']
 })

@@ -5,7 +5,10 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 @Component({
   selector: 'app-ship',
   template: `
-    life: {{ ship.life }}
+    <img src="../../../../assets/game_pictures/ship.png" 
+         alt=""
+    >
+    <!-- TODO make the asset path generic -->
   `,
   styleUrls: ['./ship.component.scss'],
 

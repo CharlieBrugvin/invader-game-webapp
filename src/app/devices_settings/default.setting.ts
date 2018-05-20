@@ -19,8 +19,8 @@ export const defaultSetting = {
         invader: {
             'height.%': 10,
             speed: {
-                min: 0.002,
-                max: 0.006
+                min: 0.001,
+                max: 0.008
             },
             probability_shooting: 0.5 / 1000, // expressed in number of lasers shot by one invader during 1 ms
             probabity_creation: 0.25 // the probability of an invader to be created when an other died

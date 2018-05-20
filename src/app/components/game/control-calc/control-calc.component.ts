@@ -12,7 +12,9 @@ import { Component, OnInit, EventEmitter, Output, ElementRef, HostListener } fro
         
         (keydown)="onKeyDown('left')"
         >
-      GO LEFT
+      <span>
+        LEFT
+      </span>
     </div>
     
     <div class="middle"
@@ -20,7 +22,9 @@ import { Component, OnInit, EventEmitter, Output, ElementRef, HostListener } fro
         (mouseup)  ="upOnMiddle.emit()"
         (touchstart)="downOnMiddle.emit()"
         (touchend)="upOnMiddle.emit()">
-      SHOOT !
+        <span>
+          SHOOT !
+        </span>
     </div>
     
     <div class="right"
@@ -28,7 +32,9 @@ import { Component, OnInit, EventEmitter, Output, ElementRef, HostListener } fro
         (mouseup)  ="upOnRight.emit()"
         (touchstart)="downOnRight.emit()"
         (touchend)="upOnRight.emit()">
-      GO RIGHT
+      <span>
+        RIGHT
+      </span>
     </div>
   `,
   styleUrls: ['./control-calc.component.scss']

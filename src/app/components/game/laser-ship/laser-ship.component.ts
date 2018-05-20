@@ -5,6 +5,8 @@ import { Component, OnInit, HostBinding, Input } from '@angular/core';
 @Component({
   selector: 'app-laser-ship',
   template: `
+  <img src="../../../../assets/game_pictures/laser_ship.png" 
+  alt="">
   `,
   styleUrls: ['./laser-ship.component.scss']
 })

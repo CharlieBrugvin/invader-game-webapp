@@ -5,8 +5,8 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 @Component({
   selector: 'app-invader',
   template: `
-  life : {{ invader.life }}
-  column : {{ invader.columnIndex}}
+  <img src="../../../../assets/game_pictures/invader.png" 
+       alt="">
   `,
   styleUrls: ['./invader.component.scss']
 })
