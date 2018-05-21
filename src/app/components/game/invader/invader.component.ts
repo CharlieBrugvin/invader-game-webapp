@@ -26,7 +26,7 @@ export class InvaderComponent implements OnInit, OnChanges {
   // on a new value, check if it is necessary to change the picture
   ngOnChanges(simpleChanges: SimpleChanges) {
     
-    const newLife = simpleChanges.invader.currentValue.life
+    const newLife = simpleChanges.invader.currentValue.life;
 
     if ( newLife  <= 33 ) {
       this.picture = 'invader_very_bad.png'

@@ -11,4 +11,21 @@
         position: relative;
         flex-grow: 1;
     }
+
+    .test {
+        background-color: white;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+
+        animation-name: moving;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
 }
+
+@keyframes moving {
+    50% {
+        opacity: 0.1;
+    }
+  }

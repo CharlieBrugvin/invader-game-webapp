@@ -1,3 +1,4 @@
+import { EventsUtils } from "./EventsUtils.class";
 import { LaserUtils } from "./LaserUtils.class";
 import { Laser } from "./../types/laser.type";
 import { appSettings } from "./../app.setting";
@@ -16,7 +17,9 @@ export class ShipUtils {
         "height.%": appSettings.ship.size["height.%"]
       },
       speed: appSettings.ship.speed,
-      life: 100
+      life: 100,
+
+      events: EventsUtils.addEvent({}, 'ship', 'isCreated')
     };
   }
 
@@ -37,12 +40,19 @@ export class ShipUtils {
       newLeftPos > 100 - appSettings.ship.size["width.%"]
         ? 100 - appSettings.ship.size["width.%"]
         : newLeftPos;
+
+    // events 
+    const newEvents =
+      direction === "left"
+        ? EventsUtils.addEvent(ship.events, "ship", "isGoingLeft")
+        : EventsUtils.addEvent(ship.events, "ship", "isGoingRight");
     return {
       ...ship,
       position: {
         ...ship.position,
-        "left.%": newLeftPos
-      }
+        "left.%": newLeftPos,
+      },
+      events: newEvents
     };
   }
 

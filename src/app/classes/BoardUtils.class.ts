@@ -1,3 +1,4 @@
+import { EventsUtils } from './EventsUtils.class';
 import { InvaderColumnUtils } from "./InvaderColumns.class";
 import { element } from "protractor";
 import { ControlCalcComponent } from "./../components/game/control-calc/control-calc.component";
@@ -49,7 +50,7 @@ export class BoardUtils {
     // used to move all the elements according to their speed
     this.moveBoardElements(newBoard, elapsedTime, userInputs.shipMoves);
 
-    // catch the amount invaders outside
+    // catch the amount of invaders outside
     let amountOfInvadersOutside = 0;
     newBoard.elements.invaders.forEach(column =>
       column.forEach(invader => {
@@ -59,6 +60,9 @@ export class BoardUtils {
 
     // delete the elements outside the board
     this.deleteElementsOutside(newBoard);
+
+    // TODO decrement the event remaining times
+    this.updateRemainingTimeEvents(newBoard, elapsedTime);
 
     // ----- collisions -------
 
@@ -74,6 +78,7 @@ export class BoardUtils {
     );
 
     // delete the laser destroyed and the invader deads
+    // TODO only if there is no events remaining
     this.deleteElementsDeads(newBoard);
 
     // ----- generation of new elements ------
@@ -92,9 +97,16 @@ export class BoardUtils {
 
     // ship shoot a laser
     if (userInputs.shipShoot) {
+
+      // add a laser
       newBoard.elements.lasers.ship.push(
         ShipUtils.newLaser(newBoard.elements.ship)
       );
+      // add the event
+      newBoard.elements.ship = {
+        ...newBoard.elements.ship,
+        events: EventsUtils.addEvent(newBoard.elements.ship.events, 'ship', 'isShooting')
+      }
     }
 
     // invader shoot a laser
@@ -215,8 +227,9 @@ export class BoardUtils {
           laser.destroyed = true;
           board.elements.ship = {
             ...board.elements.ship,
-            life: board.elements.ship.life - laser.damage
-          }
+            life: board.elements.ship.life - laser.damage,
+            events: EventsUtils.addEvent(board.elements.ship.events, 'ship', 'isTouchedByLaser')
+          };
         }
       });
   }
@@ -236,4 +249,12 @@ export class BoardUtils {
       )
     };
   }
+
+  public static updateRemainingTimeEvents(board: Board, elapsedTime: number) {
+      // update the events of the ship
+        board.elements.ship = {
+          ...board.elements.ship,
+          events: EventsUtils.updateEventsTime(board.elements.ship.events, elapsedTime)
+      }
+    }
 }

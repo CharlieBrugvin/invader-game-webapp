@@ -9,4 +9,6 @@ export interface Ship {
     }
     speed: number;
     life: number;
+
+    events: {};
 }

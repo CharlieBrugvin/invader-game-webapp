@@ -1,3 +1,4 @@
+import { EventsUtils } from './../../classes/EventsUtils.class';
 import { UserInputs } from './../../types/userInputs.type';
 import { appSettings } from './../../app.setting';
 import { Board } from './../../types/board.type';

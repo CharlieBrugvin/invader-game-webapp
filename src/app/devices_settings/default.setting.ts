@@ -57,6 +57,17 @@ export const defaultSetting = {
             invader_killed: 1,
             invader_went_outside: -2,
         },
+
+        // ----- events management -----
+        eventsRemainingTime: {
+            ship: {
+                isCreated: 2000,
+                isGoingLeft: 500,
+                isGoingRight: 500,
+                isShooting: 200,
+                isTouchedByLaser: 1000
+            }
+        },
     
         // ----- game -----
         fps: 60,

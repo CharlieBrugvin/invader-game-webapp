@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from "@angular/core";
   selector: "app-board",
   template: `
 
+  <div class="test"></div>
+
   <!-- lasers  -->
   
   <app-laser-invader *ngFor="let laserInvader of board.elements.lasers.invader" 
