@@ -32,7 +32,8 @@ import { Component, OnInit, Input } from "@angular/core";
 
         <app-invader *ngFor="let invader of column; trackBy: identifyInvader" 
                     [invader]="invader" 
-                    [style.top.%]="invader['top.%']">
+                    [style.top.%]="invader['top.%']"
+                    [style.width.%]="100">
         </app-invader>
   </div>
   `,
