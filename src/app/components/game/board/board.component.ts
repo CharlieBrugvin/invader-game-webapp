@@ -7,16 +7,14 @@ import { Component, OnInit, Input } from "@angular/core";
   selector: "app-board",
   template: `
 
-  <div class="test"></div>
-
   <!-- lasers  -->
   
-  <app-laser-invader *ngFor="let laserInvader of board.elements.lasers.invader" 
+  <app-laser-invader *ngFor="let laserInvader of board.elements.lasers.invader; trackBy: identifyLaser" 
     [laser]="laserInvader" 
     [ngStyle]="laserInvader.position">
   </app-laser-invader>
 
-  <app-laser-ship *ngFor="let laserShip of board.elements.lasers.ship" 
+  <app-laser-ship *ngFor="let laserShip of board.elements.lasers.ship; trackBy: identifyLaser"
     [laser]="laserShip" 
     [ngStyle]="laserShip.position">
   </app-laser-ship>
@@ -29,10 +27,10 @@ import { Component, OnInit, Input } from "@angular/core";
 
   <!-- invaders -->
 
-  <div  *ngFor="let column of board.elements.invaders"
+  <div  *ngFor="let column of board.elements.invaders; trackBy: identifyInvaderColumn"
         class="invader-columns">
 
-        <app-invader *ngFor="let invader of column" 
+        <app-invader *ngFor="let invader of column; trackBy: identifyInvader" 
                     [invader]="invader" 
                     [style.top.%]="invader['top.%']">
         </app-invader>
@@ -48,4 +46,20 @@ export class BoardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  // trackBy functions : all the elements are identified by there indexes in their arrays
+  // TODO invaders and lasers could have a uniq id
+
+  identifyLaser(index, item){
+    return index;
+  }
+
+  identifyInvader(index, item) {
+    
+    return index;
+  }
+
+  identifyInvaderColumn(index, item) {
+    return index;
+  }
 }

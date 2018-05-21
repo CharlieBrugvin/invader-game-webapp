@@ -4,6 +4,7 @@ import { Laser } from "./../types/laser.type";
 
 // toolbox to transform a laser
 export class LaserUtils {
+
   // used to create a laser with the defaults values at the given position
   // note : the centerLeftPercent is the left position of the laser vertical axe
   // (and not the top left corner)

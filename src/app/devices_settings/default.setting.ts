@@ -6,7 +6,7 @@ export const defaultSetting = {
                 'width.%':  12,
                 'height.%': 4
             },
-            speed: 0.05, // expressed in % per ms.
+            speed: 0.09, // expressed in % per ms.
             max_laser_amount: 10 // TODO is it used ?
         },
     
@@ -22,8 +22,8 @@ export const defaultSetting = {
                 min: 0.001,
                 max: 0.008
             },
-            probability_shooting: 0.5 / 1000, // expressed in number of lasers shot by one invader during 1 ms
-            probabity_creation: 0.25 // the probability of an invader to be created when an other died
+            probability_shooting: 0.15 / 1000, // expressed in number of lasers shot by one invader during 1 ms
+            probabity_creation: 0.35 // the probability of an invader to be created when an other died
         },
     
         // ----- settings of a ship laser ------
@@ -33,8 +33,8 @@ export const defaultSetting = {
                 'height.%': 4.4
             },
             speed: {
-                min: 0.07,
-                max: 0.09
+                min: 0.09,
+                max: 0.11
             },
             damages: 35
         },
@@ -46,8 +46,8 @@ export const defaultSetting = {
                 'height.%': 4
             },
             speed: {
-                min: 0.03,
-                max: 0.05
+                min: 0.04,
+                max: 0.06
             },
             damages: 5
         },

@@ -9,12 +9,23 @@
         animation-name: moving;
         animation-duration: 2s;
         animation-iteration-count: infinite;
+        animation-timing-function: linear;
     }
 }
 
 @keyframes moving {
+    25% {
+        transform: scale(1.05, 0.95)
+        rotate(2deg);
+    }
+
     50% {
-        opacity: 0.1;
+        transform: scale(1.05, 1.05)
+    }
+
+    75% {
+        transform: scale(0.95, 1.05)
+        rotate(-2deg);
     }
   }
   
