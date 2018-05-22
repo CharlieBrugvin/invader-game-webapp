@@ -8,6 +8,7 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 
   <img [src]="'../../../../assets/game_pictures/'+picture" 
         [ngClass]="{
+          'ship': true,
           'isGoingRight': !!ship.events.isGoingRight, 
           'isGoingLeft': !!ship.events.isGoingLeft,
           'isShooting': !!ship.events.isShooting,

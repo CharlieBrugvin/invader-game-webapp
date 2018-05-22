@@ -5,4 +5,6 @@ export interface Invader {
     speed: number;
     life: number;
     insideBoard: boolean;
+    isCountedAsDeath: boolean;
+    events: {};
 }

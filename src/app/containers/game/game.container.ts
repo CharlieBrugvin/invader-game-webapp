@@ -31,7 +31,7 @@ import { Component, OnInit } from '@angular/core';
     <h5>User inputs</h5>
     {{userInputs | json }}
     <h5>Board</h5>
-    {{ board.elements.lasers.ship | json}}
+    {{ board.elements.invaders | json}}
   </pre>
   `,
   styleUrls: ['./game.container.scss']

@@ -66,6 +66,10 @@ export const defaultSetting = {
                 isGoingRight: 500,
                 isShooting: 200,
                 isTouchedByLaser: 1000
+            },
+            invader: {
+                isTouchedByLaser: 1000,
+                isKilled: 1000
             }
         },
     

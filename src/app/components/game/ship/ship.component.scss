@@ -3,31 +3,34 @@
   flex-direction: column-reverse;
   position: absolute;
 
-  img {
+  .ship {
     width: 100%;
+
+    animation: default 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
 
-  img.isCreated {
-    animation-name: touchedByLaser;
-    animation-duration: 0.5s;
+  .ship.isCreated {
+    animation: created 2s linear;
   }
 
-  img.isGoingRight {
+  .ship.isGoingRight {
     animation-name: goingRight;
     animation-duration: 0.5s;
   }
-  img.isGoingLeft {
+  .ship.isGoingLeft {
     animation-name: goingLeft;
     animation-duration: 0.5s;
   }
 
-  img.isTouchedByLaser {
+  .ship.isTouchedByLaser {
     animation-name: touchedByLaser;
-    animation-duration: 0.5s;
+    animation-duration: 0.3s;
   }
-  img.isShooting {
+  .ship.isShooting {
     animation-name: shooting;
-    animation-duration: 0.2s;
+    animation-duration: 0.15s;
   }
 
   .life {
@@ -42,6 +45,12 @@
 
 // animations
 
+@keyframes created {
+  0% {
+    transform: translateY(200%);
+  }
+}
+
 @keyframes goingRight {
   30% {
     transform: rotate(10deg);
@@ -54,26 +63,14 @@
   }
 }
 
-@keyframes touchedByLaser {
-  10% {
-    opacity: 0.5;
-  }
-  30% {
-    opacity: 1;
-  }
+@keyframes shooting {
   50% {
-    opacity: 0.5;
-  }
-  70% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0.5;
+    transform: translateY(15%);
   }
 }
 
-@keyframes shooting {
+@keyframes default {
   50% {
-    transform: translateY(10%);
+    transform:  scale(0.9, 1.1);
   }
 }

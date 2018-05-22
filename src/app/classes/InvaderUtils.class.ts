@@ -21,7 +21,9 @@ export class InvaderUtils {
         appSettings.invader.speed.max
       ),
       life: 100,
-      insideBoard: true
+      insideBoard: true,
+      isCountedAsDeath: false,
+      events: {}
     };
   }
 

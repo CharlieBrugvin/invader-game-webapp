@@ -2,8 +2,6 @@ import { appSettings } from './../app.setting';
 export class EventsUtils {
     
     public static updateEventsTime(eventList, elapsedTime: number) {
-
-        
         const newList = {};
 
         for(let key in eventList) {
@@ -11,7 +9,6 @@ export class EventsUtils {
             if (newRemainingTime > 0)
                 newList[key] = newRemainingTime;   
         }
-
         return newList;
     }
 

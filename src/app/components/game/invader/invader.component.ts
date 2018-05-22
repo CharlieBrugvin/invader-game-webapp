@@ -5,8 +5,16 @@ import { Component, OnInit, OnChanges, Input, HostBinding, SimpleChanges } from 
 @Component({
   selector: 'app-invader',
   template: `
-  <img [src]="'../../../../assets/game_pictures/'+picture" 
-       alt="">
+  <img [src]="'../../../../assets/game_pictures/'+picture"
+        [ngClass]="{
+          'invader': true,
+          'isTouchedByLaser': !!invader.events.isTouchedByLaser, 
+          'isKilled': !!invader.events.isKilled
+      }" >
+
+  <img *ngIf="!!invader.events.isKilled"
+       class="explosion"
+       src="../../../../assets/game_pictures/event_invader_killed.png">
   `,
   styleUrls: ['./invader.component.scss']
 })

@@ -7,6 +7,9 @@ import { Component, OnInit, Input } from "@angular/core";
   selector: "app-board",
   template: `
 
+  <img class="background-image"
+  src="../../../../assets/game_pictures/background.jpg" >
+
   <!-- lasers  -->
   
   <app-laser-invader *ngFor="let laserInvader of board.elements.lasers.invader; trackBy: identifyLaser" 
@@ -36,6 +39,8 @@ import { Component, OnInit, Input } from "@angular/core";
                     [style.width.%]="100">
         </app-invader>
   </div>
+
+  
   `,
   styleUrls: ["./board.component.scss"]
 })

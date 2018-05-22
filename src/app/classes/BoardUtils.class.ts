@@ -1,4 +1,4 @@
-import { EventsUtils } from './EventsUtils.class';
+import { EventsUtils } from "./EventsUtils.class";
 import { InvaderColumnUtils } from "./InvaderColumns.class";
 import { element } from "protractor";
 import { ControlCalcComponent } from "./../components/game/control-calc/control-calc.component";
@@ -28,8 +28,8 @@ export class BoardUtils {
         ship: ShipUtils.init(),
         invaders: invaderColumns,
         lasers: {
-          invader: [LaserUtils.create("invader", 50, 50)],
-          ship: [LaserUtils.create("ship", 50, 30)]
+          invader: [],
+          ship: []
         }
       },
       score: 0
@@ -73,7 +73,10 @@ export class BoardUtils {
     let amountOfInvadersDead = 0;
     newBoard.elements.invaders.forEach(column =>
       column.forEach(invader => {
-        if (invader.life <= 0) amountOfInvadersDead++;
+        if (invader.life <= 0 && !invader.isCountedAsDeath) {
+          invader.isCountedAsDeath = true;
+          amountOfInvadersDead++
+        };
       })
     );
 
@@ -97,7 +100,6 @@ export class BoardUtils {
 
     // ship shoot a laser
     if (userInputs.shipShoot) {
-
       // add a laser
       newBoard.elements.lasers.ship.push(
         ShipUtils.newLaser(newBoard.elements.ship)
@@ -105,8 +107,12 @@ export class BoardUtils {
       // add the event
       newBoard.elements.ship = {
         ...newBoard.elements.ship,
-        events: EventsUtils.addEvent(newBoard.elements.ship.events, 'ship', 'isShooting')
-      }
+        events: EventsUtils.addEvent(
+          newBoard.elements.ship.events,
+          "ship",
+          "isShooting"
+        )
+      };
     }
 
     // invader shoot a laser
@@ -145,7 +151,7 @@ export class BoardUtils {
     }
     // --- invaders moves ---
     board.elements.invaders = board.elements.invaders.map(column =>
-      column.map(invader => InvaderUtils.move(invader, elapsedTime))
+      column.map(invader => invader.life > 0 ? InvaderUtils.move(invader, elapsedTime): invader)
     );
     // ---- lasers moves ----
     board.elements.lasers.invader = board.elements.lasers.invader.map(laser =>
@@ -187,7 +193,9 @@ export class BoardUtils {
           laserPosLeft / (100 / appSettings.invader_column.number)
         );
         // find an eventual colision between the laser and an invader of this column
-        const invaderCollided = board.elements.invaders[columnIndex].find(
+        const invaderCollided = board.elements.invaders[columnIndex]
+          .filter(invader => invader.life > 0)
+          .find(
           invader => {
             return (
               invader["top.%"] + invader["height.%"] > laser.position["top.%"]
@@ -197,6 +205,20 @@ export class BoardUtils {
         // apply the damages
         if (invaderCollided) {
           invaderCollided.life -= laser.damage;
+
+          invaderCollided.events =
+            invaderCollided.life < 0
+              ? EventsUtils.addEvent(
+                  invaderCollided.events,
+                  "invader",
+                  "isKilled"
+                )
+              : EventsUtils.addEvent(
+                  invaderCollided.events,
+                  "invader",
+                  "isTouchedByLaser"
+                );
+
           laser.destroyed = true;
         }
       });
@@ -228,7 +250,11 @@ export class BoardUtils {
           board.elements.ship = {
             ...board.elements.ship,
             life: board.elements.ship.life - laser.damage,
-            events: EventsUtils.addEvent(board.elements.ship.events, 'ship', 'isTouchedByLaser')
+            events: EventsUtils.addEvent(
+              board.elements.ship.events,
+              "ship",
+              "isTouchedByLaser"
+            )
           };
         }
       });
@@ -236,6 +262,8 @@ export class BoardUtils {
 
   // delete all the laser destroyed and the invader with a life < 0
   public static deleteElementsDeads(board: Board): void {
+
+    // delete the lasers
     board.elements = {
       ...board.elements,
       lasers: {
@@ -244,17 +272,31 @@ export class BoardUtils {
         ),
         ship: board.elements.lasers.ship.filter(laser => !laser.destroyed)
       },
+
+      // delete the invader with a life < 0 && with no events
       invaders: board.elements.invaders.map(column =>
-        column.filter(invader => invader.life > 0)
+        column.filter(invader => !(invader.life < 0 && _.isEmpty(invader.events)))
       )
     };
   }
 
   public static updateRemainingTimeEvents(board: Board, elapsedTime: number) {
-      // update the events of the ship
-        board.elements.ship = {
-          ...board.elements.ship,
-          events: EventsUtils.updateEventsTime(board.elements.ship.events, elapsedTime)
+    // update the events of the ship
+    board.elements.ship = {
+      ...board.elements.ship,
+      events: EventsUtils.updateEventsTime(
+        board.elements.ship.events,
+        elapsedTime
+      )
+    };
+    // and the events of the invaders
+    board.elements.invaders = board.elements.invaders.map(column =>
+      column.map(invader => {
+        return {
+          ...invader,
+          events:  EventsUtils.updateEventsTime(invader.events, elapsedTime)
+        }
       }
-    }
+      ))
+  }
 }

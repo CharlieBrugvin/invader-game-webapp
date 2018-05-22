@@ -3,3 +3,15 @@
 body {
     margin: 0px;
 }
+
+// animations shared
+
+@keyframes touchedByLaser {
+  33% {
+      filter: saturate(3);
+      transform: rotate(10deg);
+  }
+  66% {
+      transform: rotate(-10deg);
+  }
+}
