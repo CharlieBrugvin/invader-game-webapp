@@ -32,7 +32,8 @@ export class BoardUtils {
           ship: []
         }
       },
-      score: 0
+      score: 0,
+      events: {}
     };
   }
 
@@ -128,7 +129,11 @@ export class BoardUtils {
     );
 
     // -------- update the score --------
-    newBoard.score += appSettings.points.invader_killed * amountOfInvadersDead;
+    if (amountOfInvadersDead > 0) {
+      newBoard.score += appSettings.points.invader_killed * amountOfInvadersDead;
+      newBoard.events = EventsUtils.addEvent(newBoard.events, 'board', 'isGettingPoint');
+    }
+   
     newBoard.score +=
       appSettings.points.invader_went_outside * amountOfInvadersOutside;
 
@@ -297,6 +302,8 @@ export class BoardUtils {
           events:  EventsUtils.updateEventsTime(invader.events, elapsedTime)
         }
       }
-      ))
+    ))
+    // and the boards events
+    board.events = EventsUtils.updateEventsTime(board.events, elapsedTime);
   }
 }

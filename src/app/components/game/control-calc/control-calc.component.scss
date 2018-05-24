@@ -36,11 +36,11 @@
     }
 
     .left-btn, .right-btn, .shoot-btn {
-        font-size: 7vw;
+        font-size: 7vmin;
         color: white;
     }
 
     .left-btn.pressed, .right-btn.pressed, .shoot-btn.pressed {
-        font-size: 8.5vw; 
+        font-size: 8.5vmin; 
     }
 }

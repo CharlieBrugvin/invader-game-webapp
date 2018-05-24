@@ -37,6 +37,11 @@ import { Component, OnInit, Input } from "@angular/core";
         </app-invader>
   </div>
 
+  <div class="score">
+      <app-amount [amount]="board.score">
+      </app-amount>
+  </div>
+  
   
   `,
   styleUrls: ["./board.component.scss"]

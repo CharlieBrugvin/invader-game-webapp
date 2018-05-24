@@ -3,8 +3,8 @@ export const defaultSetting = {
         // ----- settings of the ship -----
         ship: {
             size: {
-                'width.%':  12,
-                'height.%': 4
+                'width.%':  10,
+                'height.%': 6
             },
             speed: 0.09, // expressed in % per ms.
             max_laser_amount: 10 // TODO is it used ?
@@ -13,7 +13,7 @@ export const defaultSetting = {
         // ------ settings of an invader -----
     
         invader_column: {
-            number: 12,
+            number: 10,
         },
         
         invader: {
@@ -70,6 +70,9 @@ export const defaultSetting = {
             invader: {
                 isTouchedByLaser: 1000,
                 isKilled: 1000
+            },
+            board: {
+                isGettingPoint: 1000
             }
         },
     

@@ -5,6 +5,8 @@
     width: 100%;
     height: 100%;
 
+    overflow: hidden;
+
     background: url('../../../../assets/game_pictures/background.jpg');
 
     
@@ -13,12 +15,20 @@
         flex-grow: 1;
     }
 
+    .score {
+        position: absolute;
+        bottom: 1%;
+        right: 5%;
+        color: white;
+        font-size: 2.5em;
+    }
+
+
     .background-image {
         position: absolute;
         width: 100%;
         height: 100%;
-
-        // filter: blur(2px);
-
     }
+
+   
 }

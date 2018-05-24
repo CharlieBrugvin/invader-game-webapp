@@ -23,6 +23,7 @@ import { ShipComponent } from './components/game/ship/ship.component';
 import { LaserInvaderComponent } from './components/game/laser-invader/laser-invader.component';
 import { LaserShipComponent } from './components/game/laser-ship/laser-ship.component';
 import { ControlCalcComponent } from './components/game/control-calc/control-calc.component';
+import { AmountComponent } from './components/amount/amount.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ControlCalcComponent } from './components/game/control-calc/control-cal
     ShipComponent,
     LaserInvaderComponent,
     LaserShipComponent,
-    ControlCalcComponent
+    ControlCalcComponent,
+    AmountComponent
   ],
   imports: [
     // modules

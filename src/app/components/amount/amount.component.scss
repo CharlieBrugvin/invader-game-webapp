@@ -1,0 +1,41 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+    text-shadow: 0 0 10px black;
+    font-family: Arial;
+    font-weight: bold;
+
+    .amount.isIncrementing {
+        animation: bigger 1s;
+    }
+
+    .increment {
+        display: none;
+    }
+
+    .increment.isIncrementing {
+        position: absolute;
+        bottom: 0px;
+        display: block;
+
+        animation: increment 1s;
+    }
+    
+}
+
+@keyframes bigger {
+    20% {
+        transform: scale(1.5,1.5);
+        text-shadow: 0 0 20px white;
+    }
+}
+
+@keyframes increment {
+    100% {
+        transform: translateY(-150%) scale(0.6, 0.8);
+        opacity: 0;
+    }
+}

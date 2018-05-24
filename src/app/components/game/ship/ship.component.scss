@@ -4,7 +4,9 @@
   position: absolute;
 
   .ship {
+    display: block;
     width: 100%;
+    height: auto;
 
     animation: default 2s;
     animation-iteration-count: infinite;
@@ -71,6 +73,6 @@
 
 @keyframes default {
   50% {
-    transform:  scale(0.9, 1.1);
+    transform:  scale(1, 1);
   }
 }
