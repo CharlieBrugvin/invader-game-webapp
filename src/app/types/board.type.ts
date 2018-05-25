@@ -13,4 +13,5 @@ export interface Board {
     }
     score: number;
     events: any;
+    gameOver: boolean;
 }

@@ -28,8 +28,6 @@ export class AmountComponent implements OnInit {
 
   ngOnChanges(simpleChanges: SimpleChanges) {
 
-    console.log(simpleChanges)
-
     if(simpleChanges.amount && !simpleChanges.amount.firstChange) {
       this.isIncrementing = true;
       const increment = simpleChanges.amount.currentValue - simpleChanges.amount.previousValue;

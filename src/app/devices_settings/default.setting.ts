@@ -49,7 +49,7 @@ export const defaultSetting = {
                 min: 0.04,
                 max: 0.06
             },
-            damages: 5
+            damages: 50//5
         },
     
         // ---- points management -----

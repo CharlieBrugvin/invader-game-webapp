@@ -33,7 +33,8 @@ export class BoardUtils {
         }
       },
       score: 0,
-      events: {}
+      events: {},
+      gameOver: false
     };
   }
 
@@ -137,6 +138,11 @@ export class BoardUtils {
    
     newBoard.score +=
       appSettings.points.invader_went_outside * amountOfInvadersOutside;
+
+    // game over ?
+    if (newBoard.elements.ship.life <= 0) {
+      newBoard.gameOver = true;
+    }
 
     return newBoard;
   }
