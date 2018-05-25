@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: '', component: HomeContainer },
   { path: 'game', component: GameContainer },
   { path: 'score', component: ScoreContainer }
- ];
- 
+];
+
 // components
 import { BoardComponent } from './components/game/board/board.component';
 import { InvaderComponent } from './components/game/invader/invader.component';
@@ -24,6 +24,9 @@ import { LaserInvaderComponent } from './components/game/laser-invader/laser-inv
 import { LaserShipComponent } from './components/game/laser-ship/laser-ship.component';
 import { ControlCalcComponent } from './components/game/control-calc/control-calc.component';
 import { AmountComponent } from './components/amount/amount.component';
+
+// services
+import { AudioService } from './services/audio.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,7 @@ import { AmountComponent } from './components/amount/amount.component';
     // routes
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [ AudioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

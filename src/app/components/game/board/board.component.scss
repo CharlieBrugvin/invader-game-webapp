@@ -20,7 +20,12 @@
         bottom: 1%;
         right: 5%;
         color: white;
-        font-size: 2.5em;
+        font-family: 'pixel';
+        
+        font-size: 5em;
+        @media screen and (max-width: 600px) {
+            font-size: 2.8em;
+        }
     }
 
 

@@ -23,7 +23,7 @@ $board-width: 80vw;
         width: $board-width;
         height: $board-width * 9 / 16;
 
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 600px) { // make breakpoint global
               border-radius: 0;
               width: 100vw;
               height: 100vh;

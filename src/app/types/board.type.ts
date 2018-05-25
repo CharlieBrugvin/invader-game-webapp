@@ -12,5 +12,5 @@ export interface Board {
         }
     }
     score: number;
-    events: {}
+    events: any;
 }

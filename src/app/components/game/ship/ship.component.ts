@@ -17,7 +17,8 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
       }" >
   
   <span class="life">
-    {{ ship.life }} %
+    <app-amount [amount]="ship.life">
+    </app-amount>
   </span>
 
     <!-- TODO make the asset path generic -->

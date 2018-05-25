@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   template: `
-    <h1> Home </h1>
+    <h1> INVADER GAME </h1>
   `,
   styleUrls: ['./home.container.scss']
 })

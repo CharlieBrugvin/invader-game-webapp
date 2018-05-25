@@ -1,12 +1,8 @@
 :host {
-    display: flex;
+    display: inline-block;
     flex-direction: column;
     align-items: center;
-
-    color: white;
-    text-shadow: 0 0 10px black;
-    font-family: Arial;
-    font-weight: bold;
+    position: relative;
 
     .amount.isIncrementing {
         animation: bigger 1s;

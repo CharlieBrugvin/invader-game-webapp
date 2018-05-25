@@ -34,7 +34,7 @@ export class AmountComponent implements OnInit {
       this.isIncrementing = true;
       const increment = simpleChanges.amount.currentValue - simpleChanges.amount.previousValue;
 
-      this.incrementText = increment > 0 ? '+'+increment : '-'+increment;
+      this.incrementText = (increment > 0 ? '+' : '-') + Math.abs(increment) ;
       
       setTimeout( () => {
         this.isIncrementing = false;

@@ -22,7 +22,7 @@ export const defaultSetting = {
                 min: 0.001,
                 max: 0.008
             },
-            probability_shooting: 0.15 / 1000, // expressed in number of lasers shot by one invader during 1 ms
+            probability_shooting: 0.0005,//0.15 / 1000, // expressed in number of lasers shot by one invader during 1 ms
             probabity_creation: 0.35 // the probability of an invader to be created when an other died
         },
     
@@ -69,7 +69,8 @@ export const defaultSetting = {
             },
             invader: {
                 isTouchedByLaser: 1000,
-                isKilled: 1000
+                isKilled: 1000,
+                isShooting: 500
             },
             board: {
                 isGettingPoint: 1000

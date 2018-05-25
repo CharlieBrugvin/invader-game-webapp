@@ -41,8 +41,6 @@ import { Component, OnInit, Input } from "@angular/core";
       <app-amount [amount]="board.score">
       </app-amount>
   </div>
-  
-  
   `,
   styleUrls: ["./board.component.scss"]
 })

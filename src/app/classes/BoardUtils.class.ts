@@ -124,6 +124,7 @@ export class BoardUtils {
           appSettings.invader.probability_shooting * elapsedTime
         ) {
           newBoard.elements.lasers.invader.push(InvaderUtils.newLaser(invader));
+          invader.events = EventsUtils.addEvent(invader.events, 'invader', 'isShooting')
         }
       })
     );

@@ -4,6 +4,18 @@ body {
     margin: 0px;
 }
 
+// fonts
+
+@font-face {
+	font-family: "pixel-3d";
+	src: url('assets/fonts/pixel-3d.ttf');
+}
+
+@font-face {
+	font-family: "pixel";
+	src: url('assets/fonts/pixel-small.TTF');
+}
+
 // animations shared
 
 @keyframes touchedByLaser {
