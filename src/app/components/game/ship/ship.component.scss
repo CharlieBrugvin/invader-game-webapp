@@ -35,6 +35,14 @@
     animation-duration: 0.15s;
   }
 
+  .ship.isDying {
+    animation: isDying 2s infinite;
+  }
+
+  .ship.ship.isDyingALot {
+    animation: isDying 1s infinite;
+  }
+
   .life {
     text-align: right;
     color: red;
@@ -77,5 +85,11 @@
 @keyframes default {
   50% {
     transform:  scale(1, 1);
+  }
+}
+
+@keyframes isDying {
+  50% {
+    filter: saturate(2)
   }
 }

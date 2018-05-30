@@ -1,13 +1,15 @@
-import { mobileSetting } from "./../../devices_settings/mobile_portrait.setting";
-import { defaultSetting } from "./../../devices_settings/default.setting";
+import { desktopSettings } from './../../device_settings/desktop.setting';
+import { mobileSetting } from "./../../device_settings/mobile_portrait.setting";
 import { AudioService } from "./../../services/audio.service";
 import { EventsUtils } from "./../../classes/EventsUtils.class";
 import { UserInputs } from "./../../types/userInputs.type";
 import { appSettings } from "./../../app.setting";
 import { Board } from "./../../types/board.type";
 import { BoardUtils } from "./../../classes/BoardUtils.class";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+
+import { varTest } from '../../app.setting';
 
 @Component({
   selector: "app-game",
@@ -18,6 +20,10 @@ import { ActivatedRoute } from "@angular/router";
       <div class="game-over-box">
         <div class="game-over"> GAME OVER </div>
         <div class="final-score"> score: {{ board.score }} </div>
+        <div class="play-again-btn"
+              (click)="onPlayAgainBtnClick()">
+        PLAY AGAIN
+        </div>
       </div>
     </div>
   
@@ -51,7 +57,6 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./game.container.scss"]
 })
 export class GameContainer implements OnInit {
-
   // init the board with one invader
   board: Board = BoardUtils.init(1);
 
@@ -65,13 +70,17 @@ export class GameContainer implements OnInit {
     shipShoot: false
   };
 
+  varTest = varTest;
+
   // fps
   updateEveryMs = 1000 / appSettings.fps;
 
   constructor(
     private audioService: AudioService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    @Inject("windowObject") private window: Window
+  ) {
+  }
 
   ngOnInit() {
     console.log(this.route.snapshot.params.type);
@@ -102,6 +111,10 @@ export class GameContainer implements OnInit {
         clearInterval(loopGame);
       }
     }, this.updateEveryMs);
+  }
+
+  onPlayAgainBtnClick() {
+    this.window.location.reload();
   }
 
   // ----- audio management -----

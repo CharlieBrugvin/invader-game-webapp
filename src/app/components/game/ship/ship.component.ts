@@ -13,7 +13,9 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
           'isGoingLeft': !!ship.events.isGoingLeft,
           'isShooting': !!ship.events.isShooting,
           'isTouchedByLaser': !!ship.events.isTouchedByLaser,
-          'isCreated': !!ship.events.isCreated
+          'isCreated': !!ship.events.isCreated,
+          'isDying': ship.life <= 50,
+          'isDyingALot': ship.life <= 25
       }" >
   
   <span class="life">

@@ -50,7 +50,10 @@ import { AudioService } from './services/audio.service';
     // routes
     RouterModule.forRoot(routes)
   ],
-  providers: [ AudioService],
+  providers: [
+    AudioService,
+    { provide: "windowObject", useValue: window}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
