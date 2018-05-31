@@ -12,7 +12,7 @@ import { ScoreContainer } from './containers/score/score.container';
 // routes
 const routes: Routes = [
   { path: '', component: HomeContainer },
-  { path: 'game/:type', component: GameContainer },
+  { path: 'game', component: GameContainer },
   { path: 'score', component: ScoreContainer }
 ];
 

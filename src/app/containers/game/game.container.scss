@@ -1,10 +1,12 @@
-$board-width: 80vw;
+$board-width: 82vw;
 
 :host {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+
+    background-color: silver;
 
     .board-container {
         position: relative;

@@ -1,6 +1,51 @@
 :host {
-    h1 {
-        font-family: 'pixel-3d"';
-        font-size: 150px;
+    min-height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    
+    font-family: 'pixel';
+    letter-spacing: 0.2em;
+    color: white;
+    background-color: black; 
+
+    .title {
+        display: flex;
+        font-size: 7vw;
+        letter-spacing: 0.2em;
+        animation: title 3s infinite;
+    }
+
+    .button-play:hover + .invader { 
+        animation: invader-hover 1s infinite linear;
+    }
+
+    .button-play {
+        border: 2px solid white;
+        padding: 20px 40px;
+        letter-spacing: 0.4em;
+        font-size: 1.5em;
+
+        &:hover{
+            cursor: pointer;
+            background-color: rgba(255,255,255,0.2);
+        }
+    }
+}
+
+@keyframes title {
+    50% {
+        transform: scale(1.05, 0.95)
+    }
+}
+
+@keyframes invader-hover {
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(10deg);
     }
 }

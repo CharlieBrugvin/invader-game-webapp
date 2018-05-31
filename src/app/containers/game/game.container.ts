@@ -9,8 +9,6 @@ import { BoardUtils } from "./../../classes/BoardUtils.class";
 import { Component, OnInit, Inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
-import { varTest } from '../../app.setting';
-
 @Component({
   selector: "app-game",
   template: `
@@ -70,8 +68,6 @@ export class GameContainer implements OnInit {
     shipShoot: false
   };
 
-  varTest = varTest;
-
   // fps
   updateEveryMs = 1000 / appSettings.fps;
 
@@ -83,10 +79,6 @@ export class GameContainer implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot.params.type);
-
-    // we init the settings
-    // this.initSettings(this.route.snapshot.params.type);
 
     // launch the loop game
 
@@ -156,18 +148,4 @@ export class GameContainer implements OnInit {
       this.audioService.playInvaderKilled();
     }
   }
-
-  // ----- init settings -----
-
-  /*
-
-  private initSettings(type: "desktop" | "mobile") {
-    if (type === "mobile") {
-      console.log('mobile settings')
-      this.appSettings = mobileSetting;
-    } else {
-      console.log('default settings')
-      this.appSettings = defaultSetting;
-    }
-  }*/
 }
