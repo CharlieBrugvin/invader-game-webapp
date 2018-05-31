@@ -9,11 +9,11 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
   <img [src]="'../../../../assets/game_pictures/'+picture" 
         [ngClass]="{
           'ship': true,
-          'isGoingRight': !!ship.events.isGoingRight, 
-          'isGoingLeft': !!ship.events.isGoingLeft,
-          'isShooting': !!ship.events.isShooting,
-          'isTouchedByLaser': !!ship.events.isTouchedByLaser,
-          'isCreated': !!ship.events.isCreated,
+          'isGoingRight': !!ship.events['isGoingRight'], 
+          'isGoingLeft': !!ship.events['isGoingLeft'],
+          'isShooting': !!ship.events['isShooting'],
+          'isTouchedByLaser': !!ship.events['isTouchedByLaser'],
+          'isCreated': !!ship.events['isCreated'],
           'isDying': ship.life <= 50,
           'isDyingALot': ship.life <= 25
       }" >
