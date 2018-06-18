@@ -1,4 +1,4 @@
-import { appSettings } from './../../../app.setting';
+import { SettingService } from './../../../services/setting.service';
 import { Laser } from './../../../types/laser.type';
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 
@@ -12,12 +12,13 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 })
 export class LaserInvaderComponent implements OnInit {
 
+
   @Input() laser: Laser;
 
-  @HostBinding('style.width.%') width = appSettings.laser_invader.size['width.%'];
-  @HostBinding('style.height.%') height = appSettings.laser_invader.size['height.%'];
+  @HostBinding('style.width.%') width = this.settings.getSettings().laser_invader.size['width.%'];
+  @HostBinding('style.height.%') height = this.settings.getSettings().laser_invader.size['height.%'];
 
-  constructor() { }
+  constructor(private settings: SettingService) { }
 
   ngOnInit() {
   }

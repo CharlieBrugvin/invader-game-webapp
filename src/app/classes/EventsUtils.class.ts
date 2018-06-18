@@ -1,4 +1,3 @@
-import { appSettings } from './../app.setting';
 export class EventsUtils {
     
     public static updateEventsTime(eventList, elapsedTime: number) {
@@ -13,7 +12,7 @@ export class EventsUtils {
     }
 
     // NOTE: eventName MUST be in appSettings.events.
-    public static addEvent(eventList, element, eventName) {
+    public static addEvent(appSettings, eventList, element, eventName) {
         
         if (!eventList[eventName]) {
             return {

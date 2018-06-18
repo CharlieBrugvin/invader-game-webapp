@@ -1,5 +1,5 @@
+import { SettingService } from './../../../services/setting.service';
 import { BoardUtils } from "./../../../classes/BoardUtils.class";
-import { appSettings } from "./../../../app.setting";
 import { Board } from "./../../../types/board.type";
 import { Component, OnInit, Input } from "@angular/core";
 
@@ -47,9 +47,7 @@ import { Component, OnInit, Input } from "@angular/core";
 export class BoardComponent implements OnInit {
   @Input() board: Board;
 
-  appSettings = appSettings; // used to import app setting as an attribute
-
-  constructor() {}
+  constructor(private settings: SettingService) {}
 
   ngOnInit() {}
 

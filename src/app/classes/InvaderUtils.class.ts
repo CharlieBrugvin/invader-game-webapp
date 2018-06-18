@@ -1,7 +1,6 @@
 import { RandomUtils } from "./randomUtils.class";
 import { LaserUtils } from "./LaserUtils.class";
 import { Laser } from "./../types/laser.type";
-import { appSettings } from "./../app.setting";
 import { Invader } from "./../types/invader.type";
 
 // toolbox used to update an invader
@@ -9,8 +8,9 @@ export class InvaderUtils {
   // create an invader with a given top value
   // default top value is just above the board
   public static create(
+    appSettings,
     columnIndex: number,
-    topPercent: number = -appSettings.invader["height.%"]
+    topPercent: number
   ): Invader {
     return {
       "top.%": topPercent,
@@ -43,12 +43,13 @@ export class InvaderUtils {
   }
 
   // generate a ship laser according to the ship position
-  public static newLaser(invader: Invader): Laser {
+  public static newLaser(appSettings, invader: Invader): Laser {
     // we calculate the invader left pos with its column index
     const columnWidth = 100 / appSettings.invader_column.number;
     const invaderLeftPos = invader.columnIndex * columnWidth;
 
     return LaserUtils.create(
+      appSettings, 
       "invader",
       invader["top.%"],
       invaderLeftPos + columnWidth / 2

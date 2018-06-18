@@ -1,6 +1,6 @@
-import { appSettings } from './../../../app.setting';
 import { Ship } from './../../../types/ship.type';
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { SettingService } from '../../../services/setting.service';
 
 @Component({
   selector: 'app-ship',
@@ -32,14 +32,19 @@ export class ShipComponent implements OnInit {
 
   @Input() ship: Ship;
   
-  @HostBinding('style.width.%') width = appSettings.ship.size['width.%'];
-  @HostBinding('style.height.%') height = appSettings.ship.size['height.%'];
+  @HostBinding('style.width.%') width;
+  @HostBinding('style.height.%') height;
+ 
 
   picture = 'ship.png'
 
-  constructor() { }
+  constructor(private settings: SettingService) {
+  }
+
 
   ngOnInit() {
+    this.width = this.settings.getSettings().ship.size['width.%'];
+    this.height = this.settings.getSettings().ship.size['height.%'];
   }
 
 }

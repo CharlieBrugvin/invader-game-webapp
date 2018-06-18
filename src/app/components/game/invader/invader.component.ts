@@ -1,4 +1,4 @@
-import { appSettings } from './../../../app.setting';
+import { SettingService } from './../../../services/setting.service';
 import { Invader } from './../../../types/invader.type';
 import { Component, OnInit, OnChanges, Input, HostBinding, SimpleChanges } from '@angular/core';
 
@@ -20,13 +20,13 @@ import { Component, OnInit, OnChanges, Input, HostBinding, SimpleChanges } from 
 })
 export class InvaderComponent implements OnInit, OnChanges {
   
-  @HostBinding('style.height.%') height = appSettings.invader['height.%'];
+  @HostBinding('style.height.%') height = this.settings.getSettings().invader['height.%'];
 
   picture = 'invader.png';
 
   @Input() invader: Invader;
 
-  constructor() { }
+  constructor(private settings: SettingService) { }
 
   ngOnInit() {
   }

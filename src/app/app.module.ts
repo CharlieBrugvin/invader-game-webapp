@@ -27,6 +27,7 @@ import { AmountComponent } from './components/amount/amount.component';
 
 // services
 import { AudioService } from './services/audio.service';
+import { SettingService } from './services/setting.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AudioService } from './services/audio.service';
   ],
   providers: [
     AudioService,
-    { provide: "windowObject", useValue: window}
+    { provide: "windowObject", useValue: window},
+    SettingService
   ],
   bootstrap: [AppComponent]
 })

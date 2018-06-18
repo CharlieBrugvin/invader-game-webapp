@@ -1,9 +1,6 @@
-import { desktopSettings } from './../../device_settings/desktop.setting';
-import { mobileSetting } from "./../../device_settings/mobile_portrait.setting";
+import { SettingService } from './../../services/setting.service';
 import { AudioService } from "./../../services/audio.service";
-import { EventsUtils } from "./../../classes/EventsUtils.class";
 import { UserInputs } from "./../../types/userInputs.type";
-import { appSettings } from "./../../app.setting";
 import { Board } from "./../../types/board.type";
 import { BoardUtils } from "./../../classes/BoardUtils.class";
 import { Component, OnInit, Inject } from "@angular/core";
@@ -56,7 +53,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class GameContainer implements OnInit {
   // init the board with one invader
-  board: Board = BoardUtils.init(1);
+  board: Board;
 
   // inputs
   downOnLeft = false;
@@ -69,22 +66,32 @@ export class GameContainer implements OnInit {
   };
 
   // fps
-  updateEveryMs = 1000 / appSettings.fps;
+  updateEveryMs;
 
   constructor(
     private audioService: AudioService,
     private route: ActivatedRoute,
-    @Inject("windowObject") private window: Window
+    @Inject("windowObject") private window: Window,
+    private settingService: SettingService
   ) {
+    
   }
 
   ngOnInit() {
+
+    // set the settings
+    this.settingService.setSettings('desktop');
+    console.log(this.settingService.getSettings());
+
+    this.updateEveryMs = 1000 / this.settingService.getSettings().fps;
+    this.board = BoardUtils.init(this.settingService.getSettings(), 1)
 
     // launch the loop game
 
     let loopGame = setInterval(() => {
       // we update the board
       this.board = BoardUtils.updateBoard(
+        this.settingService.getSettings(),
         this.board,
         this.updateEveryMs,
         this.userInputs
@@ -115,7 +122,7 @@ export class GameContainer implements OnInit {
     // if ship is shooting
     if (
       board.elements.ship.events["isShooting"] ===
-      appSettings.eventsRemainingTime.ship.isShooting
+      this.settingService.getSettings().eventsRemainingTime.ship.isShooting
     ) {
       this.audioService.playShipShot();
     }
@@ -127,7 +134,7 @@ export class GameContainer implements OnInit {
           !!column.find(
             invader =>
               invader.events["isShooting"] ===
-              appSettings.eventsRemainingTime.invader.isShooting
+              this.settingService.getSettings().eventsRemainingTime.invader.isShooting
           )
       )
     ) {
@@ -141,7 +148,7 @@ export class GameContainer implements OnInit {
           !!column.find(
             invader =>
               invader.events["isKilled"] ===
-              appSettings.eventsRemainingTime.invader.isKilled
+              this.settingService.getSettings().eventsRemainingTime.invader.isKilled
           )
       )
     ) {

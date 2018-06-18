@@ -1,5 +1,4 @@
 import { RandomUtils } from "./randomUtils.class";
-import { appSettings } from "./../app.setting";
 import { Laser } from "./../types/laser.type";
 
 // toolbox to transform a laser
@@ -9,6 +8,7 @@ export class LaserUtils {
   // note : the centerLeftPercent is the left position of the laser vertical axe
   // (and not the top left corner)
   public static create(
+    appSettings,
     type: "ship" | "invader",
     topPercent: number,
     centerLeftPercent: number

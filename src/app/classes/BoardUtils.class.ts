@@ -1,31 +1,27 @@
 import { EventsUtils } from "./EventsUtils.class";
 import { InvaderColumnUtils } from "./InvaderColumns.class";
-import { element } from "protractor";
-import { ControlCalcComponent } from "./../components/game/control-calc/control-calc.component";
 import { UserInputs } from "./../types/userInputs.type";
 import { LaserUtils } from "./LaserUtils.class";
 import { InvaderUtils } from "./InvaderUtils.class";
 import { ShipUtils } from "./ShipUtils.class";
-import { Laser } from "./../types/laser.type";
-import { Ship } from "./../types/ship.type";
-import { appSettings } from "./../app.setting";
-import { Invader } from "./../types/invader.type";
 import { Board } from "./../types/board.type";
 import * as _ from "lodash";
 
 // this class contains static methods used to manage a Board (creation, update, ...)
 export class BoardUtils {
+
   // this function create a board in its initial state
   // one invader is generated
-  static init(invadersAmount: number = 1): Board {
-    let invaderColumns = InvaderColumnUtils.initEmpty();
+  static init(appSettings, invadersAmount: number = 1): Board {
+
+      let invaderColumns = InvaderColumnUtils.initEmpty(appSettings);
     for (let i = 0; i < invadersAmount; i++) {
-      invaderColumns = InvaderColumnUtils.addInvader(invaderColumns);
+      invaderColumns = InvaderColumnUtils.addInvader(appSettings, invaderColumns);
     }
 
     return {
       elements: {
-        ship: ShipUtils.init(),
+        ship: ShipUtils.init(appSettings),
         invaders: invaderColumns,
         lasers: {
           invader: [],
@@ -41,6 +37,7 @@ export class BoardUtils {
   // take as inputs the previous board, the time elapsed between now and the last update
   // and the actions of the user, and return an new board
   public static updateBoard(
+    appSettings,
     oldBoard: Board,
     elapsedTime: number,
     userInputs: UserInputs
@@ -50,7 +47,7 @@ export class BoardUtils {
     // ----- moving elements -----
 
     // used to move all the elements according to their speed
-    this.moveBoardElements(newBoard, elapsedTime, userInputs.shipMoves);
+    this.moveBoardElements(appSettings, newBoard, elapsedTime, userInputs.shipMoves);
 
     // catch the amount of invaders outside
     let amountOfInvadersOutside = 0;
@@ -69,7 +66,7 @@ export class BoardUtils {
     // ----- collisions -------
 
     // detect and apply the changes on element collisions
-    this.applyCollisions(newBoard);
+    this.applyCollisions(appSettings, newBoard);
 
     // catch the amount of invaders dead
     let amountOfInvadersDead = 0;
@@ -91,10 +88,12 @@ export class BoardUtils {
     // generate one or two invader if one was killed
     if (amountOfInvadersDead > 0) {
       newBoard.elements.invaders = InvaderColumnUtils.addInvader(
+        appSettings,
         newBoard.elements.invaders
       );
       if (Math.random() < appSettings.invader.probabity_creation) {
         newBoard.elements.invaders = InvaderColumnUtils.addInvader(
+          appSettings,
           newBoard.elements.invaders
         );
       }
@@ -104,12 +103,13 @@ export class BoardUtils {
     if (userInputs.shipShoot) {
       // add a laser
       newBoard.elements.lasers.ship.push(
-        ShipUtils.newLaser(newBoard.elements.ship)
+        ShipUtils.newLaser(appSettings, newBoard.elements.ship)
       );
       // add the event
       newBoard.elements.ship = {
         ...newBoard.elements.ship,
         events: EventsUtils.addEvent(
+          appSettings,
           newBoard.elements.ship.events,
           "ship",
           "isShooting"
@@ -124,8 +124,8 @@ export class BoardUtils {
           Math.random() <
           appSettings.invader.probability_shooting * elapsedTime
         ) {
-          newBoard.elements.lasers.invader.push(InvaderUtils.newLaser(invader));
-          invader.events = EventsUtils.addEvent(invader.events, 'invader', 'isShooting')
+          newBoard.elements.lasers.invader.push(InvaderUtils.newLaser(appSettings, invader));
+          invader.events = EventsUtils.addEvent(appSettings, invader.events, 'invader', 'isShooting')
         }
       })
     );
@@ -133,7 +133,7 @@ export class BoardUtils {
     // -------- update the score --------
     if (amountOfInvadersDead > 0) {
       newBoard.score += appSettings.points.invader_killed * amountOfInvadersDead;
-      newBoard.events = EventsUtils.addEvent(newBoard.events, 'board', 'isGettingPoint');
+      newBoard.events = EventsUtils.addEvent(appSettings, newBoard.events, 'board', 'isGettingPoint');
     }
    
     newBoard.score +=
@@ -149,6 +149,7 @@ export class BoardUtils {
 
   // ! this function directly change the value of the board argument (passed as reference)
   public static moveBoardElements(
+    appSettings,
     board: Board,
     elapsedTime: number,
     shipMoves: "left" | "right" | null
@@ -156,6 +157,7 @@ export class BoardUtils {
     // --- ship moves ----
     if (shipMoves) {
       board.elements.ship = ShipUtils.move(
+        appSettings, 
         board.elements.ship,
         elapsedTime,
         shipMoves
@@ -193,7 +195,7 @@ export class BoardUtils {
   }
 
   // TODO i could split this funciton into sub methods in files such as collisionUtils.class.ts
-  public static applyCollisions(board: Board): void {
+  public static applyCollisions(appSettings, board: Board): void {
     // find collisions between laser ships and invaders
     board.elements.lasers.ship
       .filter(laser => !laser.destroyed)
@@ -221,11 +223,13 @@ export class BoardUtils {
           invaderCollided.events =
             invaderCollided.life < 0
               ? EventsUtils.addEvent(
+                  appSettings, 
                   invaderCollided.events,
                   "invader",
                   "isKilled"
                 )
               : EventsUtils.addEvent(
+                  appSettings, 
                   invaderCollided.events,
                   "invader",
                   "isTouchedByLaser"
@@ -263,6 +267,7 @@ export class BoardUtils {
             ...board.elements.ship,
             life: board.elements.ship.life - laser.damage,
             events: EventsUtils.addEvent(
+              appSettings, 
               board.elements.ship.events,
               "ship",
               "isTouchedByLaser"
