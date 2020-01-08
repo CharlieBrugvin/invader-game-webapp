@@ -1,4 +1,5 @@
 This is an online game made in Angular. Link to the web application : https://invader-2437c.web.app/game
+It is completely responsive, playable on desktop or mobile.
 
 ----------
 
